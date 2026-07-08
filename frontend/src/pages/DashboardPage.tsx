@@ -42,11 +42,18 @@ export function DashboardPage() {
           </p>
         </header>
 
-        <Link to="/cases/new" className="block">
-          <Button size="lg" fullWidth>
-            + New Clinical Case
-          </Button>
-        </Link>
+        <div className="grid grid-cols-2 gap-3">
+          <Link to="/patients/new" className="block">
+            <Button size="lg" fullWidth>
+              + New Patient
+            </Button>
+          </Link>
+          <Link to="/patients" className="block">
+            <Button size="lg" fullWidth variant="secondary">
+              View Patients
+            </Button>
+          </Link>
+        </div>
 
         <section className="flex flex-col gap-3">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-text-muted">

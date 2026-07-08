@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 const navItems = [
   { to: '/dashboard', label: 'Home', icon: HomeIcon },
+  { to: '/patients', label: 'Patients', icon: PatientsIcon },
   { to: '/cases', label: 'Cases', icon: CasesIcon },
   { to: '/notifications', label: 'Alerts', icon: BellIcon },
   { to: '/profile', label: 'Profile', icon: UserIcon },
@@ -55,6 +56,25 @@ function HomeIcon({ active }: { active: boolean }) {
         strokeLinecap="round"
         strokeLinejoin="round"
         d="M3 10.5 12 3l9 7.5M5.25 9.75V20.25A1.5 1.5 0 0 0 6.75 21.75h10.5a1.5 1.5 0 0 0 1.5-1.5V9.75"
+      />
+    </svg>
+  )
+}
+
+function PatientsIcon({ active }: { active: boolean }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className="h-6 w-6"
+      fill={active ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeWidth={active ? 0 : 1.75}
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.118a7.5 7.5 0 0 1 15 0"
       />
     </svg>
   )
