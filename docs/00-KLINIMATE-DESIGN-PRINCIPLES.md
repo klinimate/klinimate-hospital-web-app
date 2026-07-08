@@ -12,6 +12,18 @@ This document defines the vision, philosophy, design principles, clinical princi
 
 Every feature, workflow, interface, AI recommendation, and future implementation must align with this document.
 
+---
+
+# Product Identity
+
+Klinimate is **not** an Electronic Medical Record (EMR).
+
+Klinimate is an **AI-powered Clinical Command Centre** designed to help hospitals recognize clinical deterioration early, standardize patient assessment, simplify clinical workflows, and connect frontline healthcare workers with specialist expertise.
+
+The purpose of Klinimate is not only to document patient information but to assist clinicians in making faster, safer, and more consistent clinical decisions while maintaining the treating physician's authority over all clinical decisions.
+
+---
+
 ## 1. Product Vision
 
 Klinimate exists to build the simplest hospital operating system for everyday clinical care.
