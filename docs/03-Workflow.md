@@ -138,11 +138,66 @@ If confidence is moderate or low, the AI requests additional information before 
 
 8. Escalation Recommendation
 
-The AI recommends one of the following:
+Hospital Medical Officer
 
-- Continue Local Management
-- Klinimate Care Coordinator Review
-- Immediate Specialist Review
+↓
+
+Klinimate AI Clinical Assessment
+
+↓
+
+Klinimate Clinical Triage
+
+↓
+
+GREEN
+Notify Klinimate Support (If Required)
+
+↓
+
+YELLOW
+Request Klinimate Support
+
+↓
+
+RED / BLACK
+Connect Klinimate Support Immediately
+
+↓
+
+Klinimate Care Coordinator (24×7 Command Centre)
+
+↓
+
+Reviews AI Summary
+Collects Structured Information
+Ensures Reports are Complete
+Starts Monitoring
+Assigns Klinimate Intensivist
+
+↓
+
+Klinimate Intensivist
+
+↓
+
+Clinical Advice
+
+↓
+
+Specialist Consultation (If Required)
+
+↓
+
+Klinimate Care Coordinator
+
+↓
+
+Final Coordinated Treatment Plan
+
+↓
+
+Hospital Medical Officer
 
 ---
 
