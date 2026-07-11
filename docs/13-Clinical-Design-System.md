@@ -1,367 +1,221 @@
-# Klinimate Clinical Design System
-
+Klinimate Clinical Design System
 Version: 1.0
 Status: Active
 Owner: Dr. Avdhut Kulkarni (Founder & Director)
-
----
-
-# Purpose
-
-This document defines the official clinical standards of the Klinimate Platform.
-
+Purpose
+This document defines the official clinical design standards of the Klinimate Platform.
 It serves as the single source of truth for:
-
-• Clinical workflows
-• AI Clinical Decision Support (CDSS)
-• Triage
-• Escalation
-• Monitoring
-• Clinical alerts
-• Patient prioritisation
-• Clinical documentation
-
-Every module within the Klinimate ecosystem must follow this document.
-
----
-
-# Clinical Philosophy
-
-Klinimate is designed to assist clinicians—not replace them.
-
+Clinical workflows
+Clinical user interface
+Clinical documentation
+Patient timeline
+Klinimate Intelligence
+Clinical collaboration
+Virtual specialist workflow
+Clinical safety
+Clinical consistency
+Every clinical module within the Klinimate ecosystem must follow this design system.
+Clinical Philosophy
+Klinimate is designed to assist healthcare professionals—not replace them.
 The platform should:
-
-• Detect deterioration early.
-• Standardise patient assessment.
-• Reduce missed warning signs.
-• Improve documentation.
-• Support faster clinical decision-making.
-• Escalate high-risk patients immediately.
-• Keep clinicians in control.
-
-Final clinical responsibility always remains with the treating medical team.
-
----
-
-# Clinical Workflow
-
-Every admitted patient follows the same workflow.
-
+Simplify clinical documentation.
+Standardize patient assessment.
+Reduce documentation burden.
+Improve communication.
+Detect deterioration early.
+Support evidence-informed clinical decisions.
+Enable seamless collaboration.
+Keep clinicians in control.
+Final responsibility always remains with the treating healthcare professional.
+Universal Clinical Workflow
+Every patient follows the same workflow regardless of care setting.
 Patient Registration
-
 ↓
-
-Admission
-
+Clinical Assessment
 ↓
-
-Initial Assessment
-
+Vitals
 ↓
-
-Vital Signs
-
+Clinical Notes
 ↓
-
-AI Clinical Analysis
-
+Clinical Documents
 ↓
-
-Klinimate Clinical Triage
-
+Diagnosis
 ↓
-
-Management Plan
-
+Investigations
 ↓
-
-Escalation (if required)
-
+Medications
 ↓
-
-Daily Progress Rounds
-
+Klinimate Intelligence
 ↓
-
-Discharge / Referral / Death
-
----
-
-# Klinimate Clinical Triage
-
-The platform classifies every patient into one of four categories.
-
-## GREEN
-
-Meaning
-
-Stable Patient
-
-Examples
-
-• Mild viral illness
-• Stable diabetes
-• Stable hypertension
-• Minor infections
-• Stable post-treatment patient
-
-Typical Findings
-
-Normal observations.
-
-No immediate deterioration.
-
-Actions
-
-• Continue routine care.
-• Routine monitoring.
-• Repeat observations as scheduled.
-• Notify Klinimate Intensivist if clinician requires expert opinion.
-
----
-
-## YELLOW
-
-Meaning
-
-Urgent
-
-Examples
-
-• Mild to moderate chest pain
-• Mild to moderate chest discomfort
-• Mild respiratory distress
-• Mild to moderate abdominal pain
-• Tachycardia (90–120/min)
-• Hypotension (systolic around 90 mmHg)
-• Hypoxia (SpO₂ below 94%)
-
-Actions
-
-• Start oxygen.
-• Apply chest leads and connect monitor.
-• Obtain a 12-lead ECG.
-• Call Klinimate Intensivist immediately.
-• Begin recommended investigations.
-• Repeat vital signs frequently.
-• Monitor closely for deterioration.
-
----
-
-## RED
-
-Meaning
-
+Treatment Plan
+↓
+Follow-up
+↓
+Discharge / Transfer / Home Care
+Supported Care Settings
+The same workflow applies to:
+OPD
 Emergency
-
-Examples
-
-• Severe chest pain with ECG changes
-• Acute shortness of breath
-• Severe abdominal pain
-• Acute gastrointestinal bleeding
-• Bluish discoloration of skin
-• Persistent tachycardia (>120/min)
-• Persistent hypotension (systolic <90 mmHg)
-• Hypoxia (SpO₂ <90%)
-
-Actions
-
-• Call Klinimate Intensivist immediately.
-• Start oxygen immediately.
-• Apply chest leads and connect monitor.
-• Obtain a 12-lead ECG.
-• Establish IV access.
-• Begin emergency investigations.
-• Repeat vital signs continuously.
-• Prepare for ICU transfer if required.
-
----
-
-## BLACK
-
-Meaning
-
-Black Category
-
-Examples
-
-• Cardiac arrest
-• Respiratory arrest
-• No signs of life
-• Death confirmed by treating clinician
-
-Actions
-
-• Call Klinimate Intensivist immediately.
-• Initiate CPR if appropriate.
-• Follow hospital resuscitation policy.
-• Document events.
-• Notify relatives as per hospital protocol.
-• Complete medicolegal documentation where applicable.
-
----
-
-# AI Clinical Decision Support
-
-AI analyses:
-
-• Presenting complaint
-• Vital signs
-• Medical history
-• Examination findings
-• Laboratory results
-• ECG
-• Imaging
-• Clinical progression
-
-AI generates:
-
-• Clinical Summary
-• Triage Category
-• Risk Factors
-• Differential Diagnoses
-• Recommended Investigations
-• Suggested Management
-• Escalation Advice
-
-AI recommendations are advisory only.
-
----
-
-# Escalation Principles
-
-Escalation depends on:
-
-• Triage category
-• Vital sign abnormalities
-• Clinical deterioration
-• Abnormal investigations
-• Doctor request
-
-GREEN
-
-Optional notification.
-
-YELLOW
-
-Immediate Intensivist review recommended.
-
-RED
-
-Immediate Intensivist involvement required.
-
-BLACK
-
-Immediate emergency response.
-
----
-
-# Vital Sign Monitoring
-
-Monitor:
-
-• Heart rate
-• Blood pressure
-• Respiratory rate
-• Oxygen saturation
-• Temperature
-• Blood glucose
-• Consciousness (GCS/AVPU where applicable)
-
-Abnormal trends should trigger reassessment.
-
----
-
-# Documentation Principles
-
+IPD
+ICU
+Rehabilitation
+Home Care
+Day Care
+Nursing Home
+No separate documentation systems should exist for different care settings.
+One Patient • One Timeline
+Every patient has:
+One Patient Record
+One Clinical Timeline
+One Longitudinal Clinical History
+Every interaction is recorded chronologically.
+Timeline entries include:
+Registration
+Clinical Notes
+Nursing Notes
+Vitals
+Diagnosis
+Investigations
+Medications
+Procedures
+Clinical Documents
+AI Intelligence Updates
+Specialist Consultations
+Follow-up
+Discharge
+Klinimate Intelligence
+Klinimate Intelligence continuously analyses:
+Clinical Notes
+Vitals
+Diagnoses
+Laboratory Reports
+Medical Images
+Clinical Documents
+Medications
+Patient Progress
+It generates:
+AI Clinical Summary
+Clinical Risk Assessment
+Clinical Priorities
+Suggested Differential Diagnoses
+Suggested Investigations
+Treatment Considerations
+Clinical Intelligence Score
+Clinical Alerts
+Recommendation to Request Specialist Support
+AI recommendations remain advisory.
+Clinical Documentation
 Documentation should be:
-
-• Structured
-• Simple
-• Time stamped
-• Mobile friendly
-• Clinically relevant
-
-Avoid unnecessary typing.
-
-Use selectable options wherever possible.
-
-Allow free-text notes when needed.
-
----
-
-# Clinical Alerts
-
-Alerts should be:
-
-High Priority
-
-• RED
-• BLACK
-
-Medium Priority
-
-• YELLOW
-
-Low Priority
-
-• GREEN notifications
-
-Alert fatigue should be minimised.
-
----
-
-# Clinical Safety Principles
-
-Never rely on AI alone.
-
-Critical deterioration should always generate visible alerts.
-
-Every recommendation should remain editable by clinicians.
-
-Clinical judgement always overrides AI recommendations.
-
----
-
-# Design Principles
-
-Clinical screens should prioritise:
-
-1. Patient identity
-2. Triage status
-3. Vital signs
-4. Presenting complaint
-5. AI Clinical Summary
-6. Recommended actions
-7. Intensivist advice
-8. Daily progress
-
-Emergency information should always appear above routine information.
-
----
-
-# Future Expansion
-
-This design system will later include:
-
-• ICU-specific workflows
-• Obstetric pathways
-• Paediatric pathways
-• Sepsis pathway
-• Stroke pathway
-• Acute Coronary Syndrome pathway
-• Trauma pathway
-• Remote monitoring
-• Wearable device integration
-• Predictive deterioration models
-
----
-
-# Clinical Design Rule
-
-Every future Klinimate feature, workflow, AI model, dashboard, and clinical recommendation must follow this Clinical Design System.
-
-No module should introduce alternative clinical workflows without approval from the Founder.
-
-This document is the official clinical standard for the Klinimate ecosystem.
+Fast
+Structured
+Clinically relevant
+Mobile-friendly
+Time-stamped
+Easy to review
+Users should:
+Click more
+Type less
+Every section should provide:
+Smart searchable lists
+Quick selections
+Manual entry when required
+Clinical Notes
+Every note records:
+Author
+Role
+Visit Type (In-person / Virtual)
+Date & Time
+Clinical Note
+Attached Clinical Documents
+Notes remain editable for 10 minutes.
+Subsequent information is recorded as a new Clinical Update.
+The original note is never overwritten.
+Clinical Documents
+Supported uploads include:
+Handwritten Notes
+Laboratory Reports
+ECG
+Chest X-ray
+CT
+MRI
+Referral Letters
+Previous Prescriptions
+Discharge Summaries
+Clinical Photographs
+Klinimate Intelligence analyses supported documents automatically.
+Smart Clinical Entry
+Use smart searchable libraries for:
+Diagnoses
+Investigations
+Medications
+General Advice
+Manual entry must always remain available.
+Clinical Collaboration
+All healthcare professionals work within the same patient record.
+Depending on permissions, users may include:
+Organization Doctors
+Nurses
+Klinimate Care Coordinators
+Intensivists
+Specialists
+Every action is recorded with user identity and timestamp.
+Clinical Alerts
+Alerts should be meaningful and actionable.
+Priority Levels
+Stable
+Routine monitoring
+Needs Review
+Clinical reassessment recommended
+Urgent
+Immediate review required
+Critical
+Immediate escalation required
+Alert fatigue should be minimized.
+Clinical Safety
+The platform should:
+Never replace clinician judgement.
+Clearly distinguish AI-generated information from clinician documentation.
+Maintain a complete audit trail.
+Support safe clinical communication.
+Preserve all historical documentation.
+User Interface Standards
+Every clinical screen should prioritize:
+Patient Identity
+Current Clinical Status
+Klinimate Intelligence
+Clinical Timeline
+Vitals
+Clinical Notes
+Investigations
+Medications
+Specialist Advice
+Next Recommended Action
+Patient information should always receive more visual emphasis than branding.
+Design Principles
+Every clinical screen should follow:
+One Patient • One Clinical Record • One Timeline
+Click More • Type Less
+Search • Select • Save
+AI Assists • Clinicians Decide
+Mobile-first
+Fast loading
+Minimal scrolling
+Consistent card layout
+Minimal training required
+Future Expansion
+The Clinical Design System will support:
+Disease-specific Clinical Protocols
+Voice-to-Text Documentation
+AI-generated Clinical Documentation
+AI-generated Referral Letters
+AI-generated Discharge Summaries
+Medical Image Analysis
+Drug Interaction Checking
+Predictive Clinical Intelligence
+Remote Patient Monitoring
+Wearable Device Integration
+Multilingual Clinical Documentation
+Clinical Design Rule
+Every Klinimate module, workflow, dashboard, AI capability, and clinical interaction must follow this Clinical Design System.
+No feature should introduce alternative documentation methods, inconsistent workflows, or duplicate patient records.
+This document serves as the official clinical design standard for the entire Klinimate ecosystem.
