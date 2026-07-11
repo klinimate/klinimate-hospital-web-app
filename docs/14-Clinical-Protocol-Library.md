@@ -2,7 +2,7 @@ Klinimate Clinical Protocol Library
 Version: 1.0
 Status: Active
 Owner: Dr. Avdhut Kulkarni (Founder & Director)
-Purpose
+Purpose-
 The Klinimate Clinical Protocol Library provides standardized, evidence-informed clinical pathways to support healthcare professionals across all care settings.
 The library is designed to assist clinicians by providing consistent assessment, investigation, management, escalation, and follow-up recommendations while allowing clinicians to exercise independent clinical judgement.
 Clinical protocols are integrated with Klinimate Intelligence to support intelligent clinical decision-making.
