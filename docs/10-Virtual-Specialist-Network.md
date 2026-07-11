@@ -161,5 +161,3 @@ Continuing Medical Education (CME) integration
 Guiding Principle
 The Virtual Specialist Network is designed to make specialist expertise accessible to every healthcare organization, regardless of location.
 By combining Klinimate Intelligence, Care Coordinators, and a global network of specialists, the platform enables hospitals, clinics, rehabilitation centres, nursing homes, and home care providers to deliver coordinated, specialist-supported patient care through a single, unified clinical workflow.
-One recommendation
-I would create a separate document for 26 – Analytics & Command Centre. Your original "Command Centre" document contained valuable operational concepts (regional monitoring, hospital status, alerts, workload, etc.), but those belong to the Command Centre Dashboard, not the Virtual Specialist Network.
