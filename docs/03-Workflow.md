@@ -162,4 +162,4 @@ Universal workflow across all care settings
 AI assists; clinicians decide
 Minimal training required
 Secure, auditable clinical documentation
-Optimized for speed, simplicity, and patient safety
+Optimized for speed, simplicity, and patient safety.
