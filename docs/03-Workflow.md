@@ -1,282 +1,165 @@
-Klinimate Hospital Platform – Clinical Workflow
-
+03 – Clinical Workflow
+Klinimate Clinical Workflow
 Overview
-
-Klinimate follows a standardized AI-assisted clinical workflow designed to support hospital doctors through structured patient assessment, intelligent clinical decision support, and expert consultation.
-
-The workflow is designed to be simple, fast, and intuitive while maintaining high clinical quality.
-
----
-
-Workflow
-
-Step 1 – Hospital Medical Officer Login
-
-The Hospital Medical Officer securely logs into Klinimate Hospital.
-
-The dashboard displays:
-
-- New Clinical Case
-- Active Cases
-- Awaiting Review
-- Completed Cases
-- Notifications
-
----
-
-Step 2 – Create New Clinical Case
-
-The Hospital Medical Officer clicks:
-
-+ New Clinical Case
-
-Patient information is entered.
-
-Mandatory Information
-
-- Patient Name / Hospital ID
-- Age
-- Gender
-- Chief Complaint
-- Working Diagnosis (optional)
-- BP
-- Pulse
-- Respiratory Rate
-- SpO₂
-- Temperature
-- GCS
-
-Target completion time:
-
-Less than 60 seconds
-
----
-
-Step 3 – AI Guided Clinical Assessment
-
-After the initial information is submitted, Klinimate AI dynamically asks only the additional questions relevant to that patient's presentation.
-
-Examples:
-
-- Breathlessness → Oxygen device, FiO₂
-- Fever → Duration, suspected source
-- Chest Pain → Duration, ECG performed
-- Stroke → Time of onset
-- Trauma → Mechanism of injury
-
-The objective is to collect only clinically relevant information while minimizing documentation.
-
----
-
-Step 4 – AI Clinical Decision Support
-
-Klinimate AI generates a structured clinical assessment.
-
-Every AI response follows the same format.
-
-1. Clinical Summary
-
-A concise summary of the patient's condition.
-
----
-
-2. Severity
-
-- Low Risk
-- Moderate Risk
-- High Risk
-
----
-
-3. Clinical Priorities
-
-Examples:
-
-- Airway
-- Breathing
-- Circulation
-- Infection Control
-- Neurological Assessment
-
----
-
-4. Red Flags
-
-Critical findings requiring immediate attention.
-
----
-
-5. Suggested Investigations
-
-Examples:
-
-- CBC
-- ABG
-- Chest X-ray
-- ECG
-- Blood Culture
-
----
-
-6. Suggested Management Priorities
-
-High-level evidence-informed priorities to support clinical decision-making.
-
----
-
-7. AI Confidence
-
-The AI indicates whether sufficient information is available.
-
-- High
-- Moderate
-- Low
-
-If confidence is moderate or low, the AI requests additional information before generating the final assessment.
-
----
-
-8. Escalation Recommendation
-
-Hospital Medical Officer
-
+Klinimate follows a single, standardized clinical workflow across every healthcare setting. Whether a patient is seen in an OPD, Emergency Department, IPD ward, ICU, Rehabilitation Centre, Home Care service, or Nursing Home, the same patient record and clinical timeline are maintained.
+The platform combines structured data entry, AI-powered Clinical Intelligence, intelligent care coordination, and virtual specialist collaboration while remaining simple enough for daily use by every healthcare professional.
+Universal Patient Journey
+Patient Registration
 ↓
-
-Klinimate AI Clinical Assessment
-
+Clinical Assessment
 ↓
-
-Klinimate Clinical Triage
-
+Vitals
 ↓
-
-GREEN
-Notify Klinimate Support (If Required)
-
+Clinical Notes
 ↓
-
-YELLOW
-Request Klinimate Support
-
+Clinical Documents
 ↓
-
-RED / BLACK
-Connect Klinimate Support Immediately
-
+Investigations
 ↓
-
-Klinimate Care Coordinator (24×7 Command Centre)
-
+Medications
 ↓
-
-Reviews AI Summary
-Collects Structured Information
-Ensures Reports are Complete
-Starts Monitoring
-Assigns Klinimate Intensivist
-
+Klinimate Intelligence
 ↓
-
-Klinimate Intensivist
-
+Treatment Plan
 ↓
-
-Clinical Advice
-
+Follow-up
 ↓
-
-Specialist Consultation (If Required)
-
+Discharge
 ↓
-
-Klinimate Care Coordinator
-
-↓
-
-Final Coordinated Treatment Plan
-
-↓
-
-Hospital Medical Officer
-
----
-
-Step 5 – Request Expert Review
-
-The Hospital Medical Officer may request expert review at any time.
-
-The case is immediately transferred to the Klinimate Care Coordinator.
-
----
-
-Step 6 – Klinimate Care Coordinator (KCC)
-
-The KCC reviews the case.
-
-Responsibilities:
-
-- Verify completeness of information.
-- Request additional information if required.
-- Review AI confidence.
-- Ensure all relevant reports are attached.
-- Assign the appropriate consultant.
-
----
-
-Step 7 – Klinimate Consultant Review
-
-The assigned consultant reviews:
-
-- Patient information
-- AI Clinical Summary
-- Reports
-- Images
-- Previous recommendations
-
-The consultant may:
-
-- Agree with AI recommendations.
-- Modify recommendations.
-- Add additional clinical advice.
-- Recommend transfer.
-- Recommend continued local management.
-
----
-
-Step 8 – Final Recommendation
-
-The Hospital Medical Officer receives the consultant's structured recommendation.
-
-The treating team remains responsible for implementation and ongoing patient care.
-
----
-
-Step 9 – Case Follow-up
-
-The Hospital Medical Officer can:
-
-- Update patient condition.
-- Add new investigations.
-- Request repeat review if clinical status changes.
-
-The consultant receives updates for reopened cases.
-
----
-
-Step 10 – Case Closure
-
-Once the patient's episode of care is complete, the case is marked as Closed.
-
-All clinical activities remain available in the audit trail.
-
----
-
-Guiding Principles
-
-- Maximum simplicity.
-- Mobile-first.
-- One primary action per screen.
-- Less than 60 seconds for initial patient entry.
-- AI reduces documentation burden.
-- AI assists clinicians but never replaces clinical judgement.
-- Every interaction should improve workflow efficiency.
+Home Care / Long-Term Follow-up (if applicable)
+Step 1 – Login
+The healthcare organization logs into Klinimate using its secure organization account.
+Supported organizations include:
+Hospitals
+Health Systems
+Rural Hospitals
+Clinics & Polyclinics
+Nursing Homes
+Rehabilitation Centres
+Home Care Providers
+Day Care Centres
+Advanced Elder Care Facilities
+Users within the organization include Consultants, RMOs, Medical Officers, and Nurses.
+Step 2 – Register Patient
+The clinician selects:
++ New Patient
+Patient information includes:
+Name
+Age
+Gender
+Hospital ID
+Care Setting (OPD / Emergency / IPD / ICU / Rehab / Home Care)
+Chief Complaint
+Patient registration should take less than 60 seconds.
+Step 3 – Clinical Assessment
+Clinical information is captured using a combination of:
+Smart searchable lists
+Structured selections
+Free-text notes
+Optional manual entry
+Information includes:
+Presenting complaints
+History
+Examination
+Working diagnosis
+Vitals
+Pain score
+GCS (when applicable)
+The interface is designed to minimize typing through simple clicks and searchable options.
+Step 4 – Clinical Notes
+Every clinical encounter is recorded as a new timeline entry.
+Each note contains:
+Seen By
+Role
+Visit Type (In-person / Virtual)
+Clinical Notes
+Timestamp
+Notes remain editable for 10 minutes.
+After 10 minutes, notes become permanently locked. Any further documentation is added as a new clinical update, ensuring a complete audit trail.
+Step 5 – Upload Clinical Documents
+Clinical documents may be uploaded alongside any note.
+Supported documents include:
+Handwritten notes
+Referral letters
+Previous prescriptions
+Discharge summaries
+Laboratory reports
+ECGs
+Chest X-rays
+Clinical photographs
+Other medical documents
+Supported files are analyzed by Klinimate Intelligence and incorporated into the clinical assessment.
+Step 6 – Investigations & Medications
+Doctors can quickly select from smart searchable libraries for:
+Diagnoses
+Investigations
+Medications
+If an item is unavailable, it can always be entered manually.
+Step 7 – Klinimate Intelligence
+Once sufficient clinical information is available, Klinimate Intelligence generates:
+AI Clinical Summary
+Clinical Priorities
+Risk Assessment
+Suggested Differential Diagnoses
+Suggested Investigations
+Treatment Considerations
+Clinical Alerts
+AI Confidence Level
+The AI supports clinical decision-making but never replaces clinician judgment.
+Step 8 – Specialist Consultation (When Required)
+If specialist input is needed, the clinician selects:
+Request Klinimate Consultation
+The request is automatically assigned to the Klinimate Care Coordinator.
+Step 9 – Klinimate Care Coordinator
+The Care Coordinator:
+Reviews patient information
+Ensures documentation is complete
+Schedules specialist consultation
+Coordinates communication
+Tracks response times
+Monitors case progress
+Step 10 – Klinimate Specialist
+The assigned specialist reviews:
+Complete patient timeline
+Clinical notes
+Vitals
+Investigations
+Uploaded documents
+AI Clinical Summary
+The specialist then provides:
+Clinical opinion
+Treatment recommendations
+Medication advice
+Follow-up plan
+Digital prescription (where applicable)
+All virtual consultations are documented within the patient's timeline.
+Step 11 – Hospital Clinical Team
+The hospital team implements the treatment plan, updates patient progress, and requests further specialist review whenever clinically indicated.
+Step 12 – Continuous Patient Timeline
+Every interaction is added to a single chronological patient timeline, including:
+Hospital consultations
+Virtual specialist consultations
+Nursing updates
+Investigation results
+Medication changes
+AI Clinical Intelligence
+Follow-up notes
+This creates one continuous patient record throughout the entire episode of care.
+Step 13 – Completion of Care
+When the episode of care is complete, the patient is:
+Discharged
+Transferred
+Referred
+Continued under Home Care
+Scheduled for Follow-up
+The complete clinical timeline remains permanently available for future reference and audit.
+Clinical Workflow Principles
+One Patient, One Record, One Timeline
+Mobile-first and AI-first
+Click More, Type Less
+Smart Search before Manual Entry
+Universal workflow across all care settings
+AI assists; clinicians decide
+Minimal training required
+Secure, auditable clinical documentation
+Optimized for speed, simplicity, and patient safety
