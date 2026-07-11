@@ -1,373 +1,225 @@
 Klinimate Hospital Platform – UI / UX Design
-
 Design Philosophy
-
-Klinimate is designed to be the simplest hospital clinical workflow platform.
-
-The user interface should feel as intuitive as WhatsApp while maintaining clinical accuracy and professionalism.
-
-Every screen should have one primary purpose and one primary action.
-
-The interface should require little or no formal training.
-
----
-
-Design Principles
-
-- Mobile-first
-- Clean and uncluttered
-- Maximum three taps to complete any major action
-- One primary action per screen
-- Large touch-friendly buttons
-- Fast loading
-- Minimal typing
-- AI asks only relevant questions
-- Consistent design across all screens
-
----
-
-Screen 1 – Login
-
-Purpose
-
-Secure access to the platform.
-
-Display
-
-- Klinimate Logo
-- Email
-- Password
-- Sign In
-- Forgot Password
-
-After successful login:
-
-Hospital Dashboard
-
----
-
-Screen 2 – Hospital Dashboard
-
-Purpose
-
-Provide immediate access to patient workflows.
-
-Display
-
-Hospital Name
-
-Doctor Name
-
-Date & Time
-
-Large Primary Button
-
-➕ New Clinical Case
-
-Below
-
-My Active Cases
-
-Awaiting Expert Review
-
-Advice Received
-
-Completed Cases
-
-Notifications
-
-Bottom Navigation
-
-- Home
-- Cases
-- Notifications
-- Profile
-
-No side menu.
-
-No unnecessary charts.
-
-No unnecessary settings.
-
----
-
-Screen 3 – New Clinical Case
-
-Purpose
-
-Collect essential patient information quickly.
-
-Display
-
-Patient Details
-
-- Name
-- Hospital Patient ID
-- Age
-- Gender
-
-Chief Complaint
-
-Quick Selection Buttons
-
-- Breathlessness
-- Fever
-- Chest Pain
-- Altered Sensorium
-- Trauma
-- Poisoning
-- Stroke
-- Other
-
-Vitals
-
-- BP
-- Pulse
-- Respiratory Rate
-- Temperature
-- SpO₂
-- GCS
-
-Primary Button
-
-Generate AI Assessment
-
-Target completion time:
-
-Less than 60 seconds.
-
----
-
-Screen 4 – AI Clinical Assessment
-
-Purpose
-
-Present AI-generated clinical decision support.
-
-Display
-
-Patient Header
-
-Clinical Summary
-
-Severity
-
-Clinical Priorities
-
-Red Flags
-
-Suggested Investigations
-
-Suggested Management Priorities
-
-AI Confidence Score
-
-Escalation Recommendation
-
-Primary Button
-
-Request Expert Review
-
-Optional
-
-Upload Reports
-
-- ECG
-- Chest X-ray
-- CBC
-- ABG
-- CT
-- MRI
-
----
-
-Screen 5 – Klinimate Care Coordinator Dashboard
-
-Purpose
-
-Coordinate clinical workflow.
-
-Display
-
-Incoming Cases
-
-Hospital Name
-
-Patient Name
-
-AI Confidence
-
-Priority
-
-Case Status
-
-Actions
-
-- Review
-- Request Information
-- Assign Consultant
-
----
-
-Screen 6 – Consultant Dashboard
-
-Purpose
-
-Review escalated cases.
-
-Display
-
-Patient Summary
-
-AI Clinical Summary
-
-Investigations
-
-Attachments
-
-Previous Notes
-
-Recommendation Box
-
-Primary Button
-
-Send Recommendation
-
----
-
-Screen 7 – Case Timeline
-
-Purpose
-
-Display complete clinical history.
-
-Timeline
-
-Case Created
-
-↓
-
-AI Assessment Completed
-
-↓
-
-KCC Review
-
-↓
-
-Consultant Review
-
-↓
-
-Recommendation Sent
-
-↓
-
-Follow-up
-
-↓
-
-Case Closed
-
-Every action is timestamped.
-
----
-
-Screen 8 – Notifications
-
-Display
-
-New Case
-
-Expert Assigned
-
-Recommendation Available
-
-Follow-up Requested
-
-Unread notifications highlighted.
-
----
-
-Screen 9 – Profile
-
-Display
-
-User Information
-
-Hospital
-
-Role
-
-Support
-
-Logout
-
----
-
-UI Color System
-
-Primary
-
-Deep Blue
-
-Success
-
-Green
-
-Warning
-
-Amber
-
-Critical
-
-Red
-
+Klinimate is designed to be the world's simplest AI-powered Clinical Intelligence platform.
+Every screen should feel as intuitive as WhatsApp, while providing the power of an advanced hospital information system.
+The platform must reduce documentation burden, simplify workflows, and allow healthcare professionals to focus on patient care rather than software.
+Every interaction should feel natural, fast, and intelligent.
+Core Design Principles
+Mobile-first
+Clean and uncluttered
+Minimal typing
+Maximum use of clicks, dropdowns and searchable lists
+One primary action per screen
+Maximum three taps to reach any major function
+Large touch-friendly controls
+Consistent design across all modules
+AI-assisted workflows
+Fast loading
+Designed for use without formal training
+Visual Identity
+Primary Color
+Klinimate Deep Blue
+Secondary Color
+Clinical Green
 Background
-
-White
-
+Pure White
 Cards
-
-Light Grey
-
----
-
-Icons
-
-Use simple healthcare icons.
-
-Avoid decorative graphics.
-
----
-
-Typography
-
-Large readable fonts.
-
-High contrast.
-
-Suitable for prolonged clinical use.
-
----
-
+Soft Grey
+Alerts
+Green – Stable
+Amber – Needs Review
+Red – Urgent
+Black – Critical
+Universal Design Rules
+Every page should include:
+Clean white background
+Minimal branding
+Maximum space for patient information
+Large readable typography
+Consistent navigation
+Responsive mobile layout
+Card-based design
+No unnecessary graphics
+No unnecessary animations
+Login Screen
+Purpose
+Provide a universal login for every Klinimate user.
+Supported Users
+Hospitals
+Health Systems
+Nursing Homes
+Rehabilitation Centres
+Home Care Providers
+Clinics
+Day Care Centres
+Polyclinics
+Klinimate Care Coordinators
+Klinimate Specialists
+Klinimate Intensivists
+Klinimate Command Centre
+Klinimate Administrators
+Display
+Klinimate Icon
+KLINIMATE
+AI-Powered Clinical Intelligence
+Email
+Password
+Log In
+Forgot Password
+Footer
+© 2026 Klinimate Private Limited
+Home Dashboard
+Purpose
+Provide immediate access to patient care.
+The dashboard should prioritize patients rather than branding.
+Display
+Small Doctor Card
+K Icon
+Hospital Name
+User Name
+Online Status
+Primary Actions
+New Patient
+Patients
+Cases
+Overview Cards
+Active Patients
+Awaiting Review
+Awaiting Specialist
+Completed Today
+Critical Patients
+Recent Activity
+Today's patients
+Pending follow-ups
+Unread notifications
+Patient Dashboard
+The Patient Dashboard is the heart of Klinimate.
+Every patient, regardless of care setting, uses the same clinical workflow.
+Applicable to
+OPD
+Emergency
+IPD
+ICU
+Rehab
+Home Care
+Sections
+Patient Details
+Vitals
+Clinical Notes
+Investigations
+Medications
+General Advice
+Clinical Timeline
+AI Summary
+Specialist Advice
+Attachments
+Clinical Notes
+Every note records:
+Author
+Role
+Date & Time
+In-person Visit or Virtual Visit
+Users may:
+Select clinician name from searchable list
+Enter a new name manually
+Write notes
+Upload clinical document
+Upload handwritten notes
+Upload photographs
+Notes become read-only after 10 minutes.
+AI Clinical Intelligence
+Displayed within every patient record.
+Includes:
+AI Clinical Summary
+Clinical Risk Assessment
+Suggested Differential Diagnoses
+Suggested Investigations
+Suggested Treatment Considerations
+Clinical Intelligence Score
+Recommended Next Action
+Updates automatically whenever new information is added.
+Investigations
+Searchable investigation library.
+Examples
+CBC
+RFT
+LFT
+ABG
+ECG
+Chest X-ray
+CT
+MRI
+Doctors may also manually add investigations.
+Medications
+Searchable medication library.
+Doctors may:
+Search medicines
+Add manually
+Modify prescriptions
+AI never prescribes independently.
+General Advice
+Common advice available through quick selection.
+Examples
+Follow-up
+Diet
+Exercise
+Hydration
+Smoking cessation
+Wound care
+Manual advice can always be added.
+Attachments
+Supported uploads
+Lab reports
+X-rays
+ECG
+CT
+MRI
+Clinical photographs
+Referral letters
+Previous prescriptions
+Discharge summaries
+Handwritten notes
+AI automatically analyses uploaded documents.
+Notifications
+Real-time notifications.
+Examples
+New patient
+Specialist assigned
+Consultation scheduled
+Advice received
+Investigation uploaded
+Follow-up due
+Bottom Navigation
+Home
+Patients
+Cases
+Notifications
+Profile
+No side navigation on mobile.
+Profile
+Display
+User information
+Organization
+Role
+Subscription
+Help & Support
+Log Out
+Accessibility
+Large touch targets
+High contrast colours
+Readable typography
+Fast performance on low-end Android devices
+Works efficiently on slow internet connections
 User Experience Goals
-
-A first-time doctor should be able to:
-
-- Log in.
-- Create a patient.
-- Generate an AI assessment.
-- Request expert review.
-
-without training.
-
-The complete workflow should take less than two minutes.
-
----
-
+A first-time healthcare professional should be able to:
+Log in
+Create a patient
+Document clinical notes
+Upload investigations
+Generate AI Clinical Intelligence
+Request specialist consultation
+Complete documentation
+within 2–3 minutes, without formal training.
 Guiding Principle
-
-Klinimate should feel like a clinical assistant—not hospital software.
-
-Every interaction should reduce cognitive load, minimize clicks, and help clinicians make better decisions faster.
+Klinimate should never feel like traditional hospital software.
+It should feel like WhatsApp meets ChatGPT for healthcare—simple enough for every doctor and nurse, yet powerful enough to become the intelligent clinical operating system for hospitals worldwide.
