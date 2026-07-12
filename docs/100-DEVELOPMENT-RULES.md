@@ -278,3 +278,5 @@ Whenever implementing a new feature, ask:
 5. Can it scale to thousands of healthcare organizations?
 
 If the answer to any question is "No", redesign the feature before implementation.
+
+No screen should overwhelm the user. Show only the most important information first. Additional details should be available on demand through expandable sections or drill-down views.
