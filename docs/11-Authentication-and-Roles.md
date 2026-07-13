@@ -1,189 +1,400 @@
-Authentication & Roles
-Version: 1.0
+# Authentication & Access Control
+
+Version: 2.0
+
 Status: Active
-Philosophy
-Klinimate should provide the simplest possible authentication experience.
-Users should never need to choose between multiple login portals.
-One Login
-↓
-Role-Based Access
-↓
-Appropriate Dashboard
-The platform automatically identifies the user's role and displays the correct workspace.
-Login Flow
-User enters:
-Email / Mobile Number
-Password
-↓
-Klinimate authenticates the user.
-↓
-Role and organization are identified.
-↓
-The appropriate dashboard is opened automatically.
-User Workspaces
-Klinimate provides six role-based workspaces.
-1. Healthcare Organization Workspace
-One login per healthcare organization.
-Applicable to:
-Hospitals
-Health Systems
-Rural Hospitals
-Clinics
-Polyclinics
-Nursing Homes
-Rehabilitation Centres
-Home Care Providers
-Day Care Centres
-Advanced Elder Care Facilities
-Used by:
-Consultants
-RMOs
-Medical Officers
-Nurses
-Hospital Administrators (where permitted)
-Responsibilities
-Register Patients
-Update Patient Information
-Clinical Notes
-Nursing Notes
-Update Vitals
-Add Diagnosis
-Order Investigations
-Prescribe Medications
-Add General Advice
-Attach Clinical Documents
-Request Klinimate Consultation
-View Specialist Advice
-Transfer Patient
-Discharge Patient
-2. Klinimate Care Coordinator
-Individual login.
-Can access only assigned healthcare organizations.
-Responsibilities
-Review consultation requests
-Verify clinical information
-Coordinate communication
-Assign specialists
-Schedule consultations
-Monitor response times
-Track follow-up
-Complete consultation workflow
-3. Klinimate Intensivist
-Individual login.
-Can access only assigned organizations and assigned critical patients.
-Responsibilities
-Review Yellow, Red, and Black patients
-Conduct virtual ICU consultations
-Add clinical recommendations
-Recommend escalation
-Monitor patient progress
-Schedule follow-up reviews
-4. Klinimate Specialist
-Individual login.
-Can access only assigned consultations.
-Examples:
-Physician
-Cardiologist
-Neurologist
-Pulmonologist
-Nephrologist
-Endocrinologist
-Psychiatrist
-Infectious Disease Specialist
-Other Specialists
-Responsibilities
-Review patient information
-Review Klinimate Intelligence
-Conduct virtual consultations
-Add clinical recommendations
-Issue digital prescriptions (where applicable)
-Plan follow-up
-5. Klinimate Command Centre
-Individual login.
-Used by:
-Command Centre Team
-Senior Care Coordinators
-Clinical Operations Team
-Responsibilities
-Monitor connected healthcare organizations
-Monitor consultations
-Track critical patients
-View regional dashboards
-Monitor specialist availability
-Coordinate escalations
-Operational oversight
-6. Klinimate Administrator
-Individual login.
-Responsibilities
-Organization Management
-User Management
-Subscription Management
-Payment Management
-Specialist Management
-Care Coordinator Management
-Platform Configuration
-Analytics
-Audit Logs
-System Monitoring
-Permission Model
-Every user sees only the information required for their role.
-Examples:
-Healthcare Organization
-Own patients only
-Care Coordinator
-Assigned organizations only
-Intensivist
-Assigned organizations
-Assigned Yellow, Red and Black patients
-Specialist
-Assigned consultations only
-Command Centre
-Operational dashboards
-Monitoring
-No unnecessary clinical editing
-Administrator
-Platform administration
-No routine clinical documentation
-Clinical Documentation Permissions
-Clinical documentation follows role-based access.
-Healthcare Organization users can:
-Create patient records
-Update clinical notes
-Update vitals
-Add medications
-Upload documents
-Klinimate specialists can:
-Add consultation notes
-Add recommendations
-Issue digital prescriptions (where applicable)
-All notes:
-Editable for 10 minutes
-Permanently locked afterwards
-Future changes recorded as Clinical Updates
-Fully auditable
-Security Principles
-One secure account per authorized user or organization.
-Role-based access control.
-Multi-organization isolation.
-End-to-end encryption of sensitive data.
-Complete audit trail.
-Every clinical action records:
-User
-Role
-Date & Time
-Device
-Patient privacy by design.
-Compliance with applicable healthcare regulations.
-Future Enhancements
-Two-Factor Authentication (2FA)
-Biometric Login
-Single Sign-On (SSO)
-Organization Identity Provider Integration
-Passkeys
-Device Management
-Session Management
-Emergency Access ("Break Glass") with full audit logging
-Fine-grained role customization for enterprise organizations
-Guiding Principle
+
+Owner: Dr. Avdhut Kulkarni (Founder & Director)
+
+---
+
+# Purpose
+
+This document defines the authentication, authorization, user roles, and access control model for the Klinimate Platform.
+
+The authentication system is designed to be secure, simple, mobile-first, and optimized for rapid clinical workflows.
+
+---
+
+# Authentication Philosophy
+
 Authentication should never become a barrier to patient care.
-Klinimate should provide simple, secure, role-based access, ensuring that every user sees the right information, at the right time, while maintaining the highest standards of security, privacy, and clinical accountability.
+
+Klinimate provides:
+
+- One secure login
+- Role-based access
+- Organization-based data isolation
+- Minimal user interaction
+- Complete auditability
+
+Users should access the platform within seconds.
+
+---
+
+# Login Workflow
+
+User Login
+
+↓
+
+Authentication
+
+↓
+
+Organization Identified
+
+↓
+
+Role Identified
+
+↓
+
+Workspace Opened
+
+↓
+
+User Profile Selected (if applicable)
+
+↓
+
+Clinical Work Begins
+
+---
+
+# Healthcare Organization Login
+
+Healthcare organizations use shared functional accounts.
+
+Examples:
+
+- doctor@hospital
+- nurse@hospital
+- consultant@hospital
+- admin@hospital
+
+After login, the user selects their profile.
+
+Examples:
+
+- Dr. Suresh
+- Dr. Shah
+- Nurse Priya
+- Nurse Neha
+
+The selected profile is automatically applied to every action during that session.
+
+The user may change profiles at any time.
+
+---
+
+# Klinimate Users
+
+Klinimate team members use individual accounts.
+
+Examples:
+
+- Care Coordinators
+- Intensivists
+- Virtual Specialists
+- Command Centre Team
+- Platform Administrators
+
+Each user receives role-based access.
+
+---
+
+# Workspaces
+
+## 1. Healthcare Organization Workspace
+
+Accessible by:
+
+- Doctors
+- Nurses
+- Consultants
+- Organization Administrators
+
+Functions:
+
+- Register Patients
+- Search Patients
+- Patient Dashboard
+- Patient Timeline
+- Medical Notes
+- Nursing Notes
+- Vitals
+- Intake & Output
+- Medications
+- Medication Administration
+- Investigations
+- Clinical Documents
+- Patient Intelligence
+- Request Klinimate Support
+- Transfer Patient
+- Discharge Patient
+
+---
+
+## 2. Klinimate Care Coordinator Workspace
+
+Responsibilities:
+
+- Receive support requests
+- Review Patient Intelligence
+- Coordinate communication
+- Assign specialists
+- Track consultations
+- Monitor follow-up
+
+Access:
+
+Assigned healthcare organizations only.
+
+---
+
+## 3. Klinimate Intensivist Workspace
+
+Responsibilities:
+
+- Review assigned critical patients
+- Provide ICU recommendations
+- Conduct virtual rounds
+- Monitor follow-up
+
+Access:
+
+Assigned organizations and assigned patients only.
+
+---
+
+## 4. Klinimate Specialist Workspace
+
+Responsibilities:
+
+- Review Patient Intelligence
+- Review clinical records
+- Conduct virtual consultations
+- Add specialist recommendations
+- Recommend medication changes
+- Recommend investigations
+- Plan follow-up
+
+Access:
+
+Assigned consultations only.
+
+---
+
+## 5. Klinimate Command Centre
+
+Responsibilities:
+
+- Monitor connected organizations
+- Monitor active consultations
+- View AI alerts
+- Monitor specialist availability
+- Coordinate escalations
+- Review operational analytics
+
+Clinical editing is restricted.
+
+---
+
+## 6. Klinimate Administrator Workspace
+
+Responsibilities:
+
+- Organization Management
+- User Management
+- Subscription Management
+- Billing
+- Permissions
+- Audit Logs
+- Platform Configuration
+- System Monitoring
+
+No routine clinical documentation.
+
+---
+
+# Permission Model
+
+Every user sees only the information required for their role.
+
+## Healthcare Organization
+
+Access:
+
+Own organization's patients only.
+
+---
+
+## Care Coordinator
+
+Access:
+
+Assigned organizations.
+
+---
+
+## Intensivist
+
+Access:
+
+Assigned organizations.
+
+Assigned patients.
+
+---
+
+## Virtual Specialist
+
+Access:
+
+Assigned consultations only.
+
+---
+
+## Command Centre
+
+Access:
+
+Operational monitoring.
+
+No routine clinical documentation.
+
+---
+
+## Administrator
+
+Access:
+
+Platform administration.
+
+No routine patient care.
+
+---
+
+# Clinical Documentation Permissions
+
+## Doctors
+
+May:
+
+- Register patients
+- Add Medical Notes
+- Update Vitals
+- Update Intake & Output
+- Prescribe Medications
+- Record Medication Administration
+- Order Investigations
+- Upload Clinical Documents
+- Request Klinimate Support
+- Finalize Patient Intelligence
+
+---
+
+## Nurses
+
+May:
+
+- Update Vitals
+- Update Intake & Output
+- Record Medication Administration
+- Add Nursing Notes
+- Upload Clinical Documents
+
+---
+
+## Consultants
+
+May:
+
+- Add Consultant Notes
+- Review Patient Intelligence
+- Finalize clinical plans
+
+---
+
+## Virtual Specialists
+
+May:
+
+- Add Specialist Notes
+- Recommend investigations
+- Recommend medication changes
+- Recommend procedures
+- Recommend follow-up
+
+---
+
+# Editing Rules
+
+Clinical entries remain editable for **10 minutes**.
+
+After 10 minutes:
+
+- Entries become read-only.
+- New information is recorded as a new timeline event.
+- Complete audit history is preserved.
+
+---
+
+# Security Principles
+
+Klinimate follows:
+
+- Role-Based Access Control (RBAC)
+- Organization Data Isolation
+- Encryption in Transit
+- Encryption at Rest
+- Complete Audit Trail
+- Secure Session Management
+
+Every clinical action records:
+
+- Organization
+- User Account
+- User Profile
+- Date & Time
+- Device
+- Action
+
+Patient privacy is protected by design.
+
+---
+
+# Future Enhancements
+
+Future versions may include:
+
+- Two-Factor Authentication (2FA)
+- Biometric Authentication
+- Single Sign-On (SSO)
+- Passkeys
+- Device Management
+- Session Management
+- Emergency "Break Glass" Access
+- Enterprise Role Customization
+
+---
+
+# Design Principles
+
+- One Login
+- One Platform
+- Role-Based Access
+- Organization-Based Security
+- Mobile-first
+- Secure by Default
+- Minimal User Interaction
+- Fully Auditable
+
+---
+
+# Guiding Principle
+
+Authentication should enable—not delay—patient care.
+
+Every user should securely access the right workspace, the right patients, and the right clinical information at the right time while preserving patient privacy, clinical accountability, and the integrity of the Klinimate Platform.
