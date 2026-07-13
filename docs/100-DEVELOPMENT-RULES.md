@@ -1,6 +1,6 @@
 # Klinimate Development Rules
 
-Version: 1.0
+Version: 2.0
 
 Status: Active
 
@@ -10,162 +10,202 @@ Owner: Dr. Avdhut Kulkarni (Founder & Director)
 
 # Purpose
 
-This document defines the mandatory software development standards for the Klinimate Platform.
+This document defines the official software engineering standards for the Klinimate Platform.
 
-All developers, contributors, AI coding assistants, and automation tools must follow these rules.
+Every developer, contributor, AI coding assistant, automation tool, and future engineering team must follow these rules.
 
-The Product Foundation (98-PRODUCT-FOUNDATION.md) and Architecture (99-ARCHITECTURE.md) are frozen. Development must extend the platform without changing its core architecture.
+The Klinimate Product Foundation is frozen.
+
+Development should extend the platform without changing its core architecture.
 
 ---
 
-# Rule 1 — Product Foundation is Frozen
+# Rule 1 — Respect the Product Foundation
 
-Never redesign the Klinimate product foundation.
+The following documents are the constitutional documents of Klinimate:
 
-Never introduce a new architecture unless explicitly approved.
+- Vision
+- Product Requirements Document (PRD)
+- Clinical Workflow
+- Database Design
+- Clinical Design System
+- Data Architecture
+- Architecture
+- Development Rules
 
-Always extend existing modules before creating new ones.
+Do not redesign or replace these documents without Founder approval.
 
 ---
 
 # Rule 2 — Follow the Architecture
 
-Every new feature must belong to one of the four architecture layers:
+Every feature must belong to an existing platform module.
 
-1. Platform
-2. Knowledge Base
-3. Klinimate Intelligence
-4. Virtual Specialist Network
+Never create duplicate workflows.
 
-Do not create parallel systems.
+Never create parallel architectures.
 
----
-
-# Rule 3 — Mobile First
-
-Every screen must be designed for mobile before desktop.
-
-Large touch targets.
-
-Minimal scrolling.
-
-Fast loading.
-
-One-hand operation.
+Always extend existing modules before creating new ones.
 
 ---
 
-# Rule 4 — Click More • Type Less
+# Rule 3 — One Platform
 
-Prefer:
+Klinimate is one integrated platform.
 
-- Search
-- Smart suggestions
+Never build disconnected applications.
+
+Every feature should integrate with:
+
+- Patient
+- Episode
+- Timeline
+- Patient Intelligence
+- Organization
+- Klinimate Intelligence
+
+---
+
+# Rule 4 — Mobile First
+
+Every feature must be designed for mobile before desktop.
+
+Requirements:
+
+- One-hand operation
+- Large touch targets
+- Fast loading
+- Minimal scrolling
+- Responsive layout
+
+---
+
+# Rule 5 — Click More • Type Less
+
+Always prefer:
+
+- Smart Search
 - Auto-complete
-- Quick actions
-- Intelligent defaults
+- Quick Selection
+- Intelligent Defaults
+- Auto-generated Summaries
 
 Avoid unnecessary typing.
 
 ---
 
-# Rule 5 — One Patient • One Clinical Record • One Timeline
+# Rule 6 — One Patient • One Clinical Record • One Timeline • One Patient Intelligence
 
-All clinical information must belong to a single patient record.
+Never duplicate patient information.
 
-Never create duplicate patient records or disconnected workflows.
+Everything belongs to:
+
+Patient
+
+↓
+
+Episode
+
+↓
+
+Timeline
+
+↓
+
+Patient Intelligence
 
 ---
 
-# Rule 6 — AI Assists • Clinicians Decide
+# Rule 7 — AI Assists • Clinicians Decide
 
 AI may:
 
 - Summarize
 - Organize
 - Prioritize
-- Suggest
+- Recommend
 - Explain
 
 AI must never:
 
 - Replace clinician judgement
 - Make autonomous clinical decisions
-- Conceal uncertainty
+- Hide uncertainty
+- Automatically finalize clinical documents
+
+Every AI-generated summary must be reviewable and editable by clinicians before finalization.
 
 ---
 
-# Rule 7 — Explainable AI
+# Rule 8 — Patient Intelligence First
 
-Every AI recommendation should be explainable.
+Patient Intelligence is the primary clinical overview.
 
-Whenever possible, display:
+Every patient-related module should contribute to Patient Intelligence.
 
-- Why the recommendation was made
-- Missing information
-- Confidence level
+Never create independent clinical summaries outside Patient Intelligence.
 
 ---
 
-# Rule 8 — Modular Development
+# Rule 9 — Keep the Interface Simple
 
-Build reusable modules.
+Every screen should have:
 
-Avoid duplicate code.
+- One primary purpose
+- One primary action
+
+Avoid:
+
+- Complex menus
+- Unnecessary dialogs
+- Deep navigation
+- Information overload
+
+Display the most important information first.
+
+Allow deeper information through drill-down pages.
+
+---
+
+# Rule 10 — Component Reuse
+
+Before creating a component:
+
+- Search existing components.
+- Reuse whenever possible.
+
+Avoid duplicated UI.
+
+Maintain consistent design patterns.
+
+---
+
+# Rule 11 — Modular Architecture
 
 Separate:
 
 - UI
 - Business Logic
+- API
 - Database
 - AI
-- API
+- Authentication
 
----
-
-# Rule 9 — Component Reuse
-
-Before creating a new component:
-
-Check whether an existing component can be reused.
-
-Avoid unnecessary duplication.
-
----
-
-# Rule 10 — Simple User Experience
-
-Every screen should have one primary purpose.
-
-Every screen should have one primary action.
-
-Avoid clutter.
-
-Avoid unnecessary popups.
-
----
-
-# Rule 11 — Performance
-
-Prioritize:
-
-- Fast loading
-- Responsive UI
-- Minimal API calls
-- Efficient database queries
+Every module should remain independently maintainable.
 
 ---
 
 # Rule 12 — Security by Default
 
-All clinical data must be:
+All clinical information must be:
 
 - Authenticated
 - Authorized
-- Encrypted
-- Auditable
+- Encrypted in transit
+- Encrypted at rest
+- Fully auditable
 
-Never expose protected health information.
+Never expose patient information.
 
 ---
 
@@ -173,110 +213,205 @@ Never expose protected health information.
 
 Every clinical action must record:
 
-- User
-- Date & Time
-- Action
 - Organization
+- User Account
+- Selected User Profile
+- Date & Time
+- Device
+- Action
 
-Clinical records should never be silently modified.
+Clinical information should never be silently modified.
 
 ---
 
-# Rule 14 — Documentation
+# Rule 14 — Performance
+
+Prioritize:
+
+- Fast loading
+- Efficient database queries
+- Optimized API calls
+- Lazy loading
+- Minimal network requests
+
+Clinical workflows should remain responsive even under heavy load.
+
+---
+
+# Rule 15 — Database Standards
+
+Never duplicate clinical data.
+
+Every clinical event must belong to:
+
+- Organization
+- Patient
+- Episode
+- Timeline
+
+Documents should be stored in cloud object storage.
+
+Database stores structured information and secure file references only.
+
+---
+
+# Rule 16 — Documentation
 
 Every major feature must include:
 
-- Documentation
-- API updates (if applicable)
-- Database updates (if applicable)
-- Tests (where applicable)
+- Updated documentation
+- Database changes
+- API documentation
+- Test cases
+- Version updates (where applicable)
+
+Documentation is part of the product.
 
 ---
 
-# Rule 15 — Coding Standards
+# Rule 17 — Coding Standards
 
 Use:
 
-- TypeScript (strict mode)
-- SOLID principles
+- TypeScript (Strict Mode)
+- React
+- FastAPI
+- PostgreSQL
 - Clean Architecture
-- Meaningful naming
-- Small reusable functions
+- SOLID Principles
 
-Avoid hard-coded values.
+Prefer:
 
-Avoid duplicated logic.
+- Small reusable components
+- Meaningful names
+- Strong typing
+- Readable code
+
+Avoid:
+
+- Hard-coded values
+- Duplicate logic
+- Unnecessary complexity
 
 ---
 
-# Rule 16 — AI Coding Assistants
+# Rule 18 — AI Coding Assistants
 
 Before generating code:
 
-1. Read Product Foundation.
-2. Read Architecture.
-3. Read relevant module documentation.
-4. Reuse existing components.
-5. Generate production-quality code.
+1. Read the Vision.
+2. Read the PRD.
+3. Read Architecture.
+4. Read the relevant module documentation.
+5. Reuse existing components.
+6. Generate production-quality code.
 
-Do not invent new architecture.
-
----
-
-# Rule 17 — Version Control
-
-Every meaningful architectural change requires:
-
-- Version History update
-- Documentation update
-- Approval before implementation
+AI assistants must never invent new workflows or architecture.
 
 ---
 
-# Rule 18 — Clinical Safety
+# Rule 19 — Clinical Safety
 
-Clinical safety has priority over convenience.
+Clinical safety always overrides convenience.
 
-When uncertain:
+If uncertainty exists:
 
 - Request clinician review.
 - Escalate appropriately.
-- Never suppress important clinical information.
+- Preserve complete auditability.
+
+Never suppress clinically significant information.
 
 ---
 
-# Rule 19 — Scalability
+# Rule 20 — Scalability
 
-Every feature should support:
+Every feature must support:
 
-- Multiple organizations
-- Multiple healthcare settings
-- Multiple specialties
-- International expansion
+- Multiple Organizations
+- Multiple Episodes of Care
+- Multiple Healthcare Settings
+- Multiple Specialties
+- Millions of Patients
+- International Expansion
 
----
-
-# Rule 20 — Guiding Principle
-
-Klinimate is not simply a Hospital Information System.
-
-It is an AI-powered Clinical Intelligence Platform.
-
-Every line of code should contribute to making healthcare simpler, safer, faster, and more intelligent while preserving clinician autonomy and improving patient care.
+Never design features for a single organization only.
 
 ---
 
+# Rule 21 — Data Ownership
 
-# Golden Rule
+Healthcare organizations own their clinical data.
 
-Whenever implementing a new feature, ask:
+Klinimate provides:
 
-1. Does it make clinicians' work easier?
-2. Does it improve patient care?
-3. Does it reduce clicks?
-4. Does it fit the existing architecture?
-5. Can it scale to thousands of healthcare organizations?
+- Secure storage
+- Clinical Intelligence
+- Data portability
 
-If the answer to any question is "No", redesign the feature before implementation.
+Organizations must always be able to export their own data.
 
-No screen should overwhelm the user. Show only the most important information first. Additional details should be available on demand through expandable sections or drill-down views.
+---
+
+# Rule 22 — Patient Intelligence Summary
+
+Patient Intelligence Summary is the single source for generating:
+
+- Discharge Summary
+- Referral Summary
+- Insurance Support Summary
+- Billing Support Summary
+- Home Care Summary
+- Rehabilitation Summary
+
+Do not build separate documentation workflows when the same information already exists within Patient Intelligence.
+
+---
+
+# Rule 23 — Version Control
+
+Major architectural changes require:
+
+- Documentation updates
+- Version updates
+- Founder approval
+
+Minor feature additions should extend the existing architecture.
+
+---
+
+# Guiding Principle
+
+Klinimate is an AI-Powered Clinical Intelligence Platform.
+
+Every line of code should simplify healthcare, reduce documentation burden, improve patient safety, and enhance clinical decision-making while ensuring clinicians remain in complete control.
+
+---
+
+# Golden Rules
+
+Before implementing any feature, ask:
+
+1. Does it simplify clinical workflows?
+2. Does it reduce documentation burden?
+3. Does it improve patient care?
+4. Does it reduce clicks?
+5. Does it align with the Product Foundation?
+6. Does it strengthen Patient Intelligence?
+7. Can it scale to thousands of healthcare organizations?
+8. Is it mobile-first?
+9. Is it clinically safe?
+10. Can a first-time clinician use it without training?
+
+If the answer to any question is **No**, redesign the feature before implementation.
+
+---
+
+# Final Engineering Principle
+
+**Build once. Reuse everywhere.**
+
+Every feature should contribute to one unified Klinimate Platform rather than creating isolated workflows or duplicate functionality.
+**Build once. Reuse everywhere.**
+
+Every feature should contribute to one unified Klinimate Platform rather than creating isolated workflows or duplicate functionality.
