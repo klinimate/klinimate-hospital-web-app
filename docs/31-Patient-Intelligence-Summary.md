@@ -1,162 +1,234 @@
 # 31 – Patient Intelligence Summary
 
-Version: 1.0
-
-Status: Active
-
-Owner: Dr. Avdhut Kulkarni (Founder & Director)
+**Version:** 2.0  
+**Status:** Active  
+**Owner:** Dr. Avdhut Kulkarni (Founder & Director)
 
 ---
 
 # Purpose
 
-The Patient Intelligence Summary is an AI-generated overview of the patient's complete clinical journey.
+The Patient Intelligence Summary is the flagship clinical intelligence feature of the Klinimate Platform.
 
-It automatically consolidates important clinical information into a concise, easy-to-read summary that helps clinicians quickly understand the patient's current status without reviewing the entire medical record.
+It automatically transforms the patient's complete clinical timeline into a concise, structured, and clinically meaningful summary that enables healthcare professionals to understand the patient's journey within one minute.
 
-The summary updates automatically whenever new clinical information is added.
+The summary is continuously updated throughout the episode of care and can be reviewed, edited, and finalized by the treating clinician.
 
 ---
 
-# Philosophy
+# Clinical Philosophy
 
+```
 One Patient
-
-↓
-
+        ↓
 One Clinical Record
-
-↓
-
+        ↓
 One Timeline
-
-↓
-
+        ↓
 One Patient Intelligence Summary
+```
 
 No duplicate documentation.
 
 No unnecessary typing.
 
+One trusted clinical summary.
+
 ---
 
 # Objectives
 
-- Provide a one-minute overview of the patient's journey.
-- Reduce time spent reviewing notes.
-- Improve clinical handovers.
-- Support discharge planning.
-- Assist hospital billing.
-- Improve continuity of care.
+The Patient Intelligence Summary is designed to:
+
+- Provide a one-minute overview of the patient's journey
+- Reduce time spent reviewing notes
+- Improve clinical handovers
+- Improve continuity of care
+- Support discharge planning
+- Support referrals
+- Support insurance documentation
+- Support hospital billing
+- Reduce documentation burden
 
 ---
 
-# Patient Intelligence Summary
+# Summary Header
 
-## 🏥 Hospital Stay
+Every exported summary displays:
+
+```text
+ABC Multispeciality Hospital
+
+Patient Intelligence Summary
+
+Powered by Klinimate Intelligence
+```
+
+The hospital identity always remains the primary brand.
+
+---
+
+# Patient Overview
+
+Displays:
+
+- Patient Name
+- Age / Gender
+- Hospital ID
+- Current Care Setting
+- Treating Consultant
+- Registration Date
+- Hospital Day
+
+---
+
+# Hospital Stay
 
 Displays:
 
 - Admission Date
 - Current Care Setting
-- Total Hospital Stay
+- Emergency Stay
 - ICU Stay
 - Ward Stay
-- Emergency Stay
+- Total Hospital Stay
 
 ---
 
-## 🩺 Diagnosis
+# Diagnosis
 
 Displays:
 
 - Primary Diagnosis
 - Secondary Diagnoses
+- Important Co-morbidities
 
 ---
 
-## 🤖 AI Clinical Summary
+# AI Clinical Summary
 
-Klinimate Intelligence automatically generates a concise 3–5 line summary of:
+Klinimate Intelligence automatically generates a concise summary describing:
 
-- Clinical presentation
+- Initial presentation
 - Hospital course
-- Current condition
+- Important clinical events
 - Response to treatment
+- Current clinical condition
+
+The summary remains editable until finalized.
 
 ---
 
-## 🧪 Investigations
+# Current Clinical Status
 
-Displays summary only.
-
-Example:
-
-- Laboratory Tests (18)
-- ECG (2)
-- X-ray (3)
-- CT/MRI (1)
-
-Tap to view details.
-
----
-
-## 💊 Medications
-
-Displays:
-
-- Current Medications
-- Total Medications Used
-
-Tap to view complete medication history.
-
----
-
-## ⚕️ Procedures
-
-Displays major procedures performed.
-
-Example:
-
-- Intubation
-- Central Line
-- Dialysis
-
-Tap to view details.
-
----
-
-## 👨‍⚕️ Clinical Reviews
-
-Displays:
-
-Hospital Team
-
-- Total In-person Reviews
-
-Klinimate Team
-
-- Total Virtual Specialist Reviews
-
-Tap to view complete consultation history.
-
----
-
-## 📈 Current Clinical Status
-
-Displays one of the following:
+Displays one of:
 
 - Stable
 - Improving
+- Needs Review
 - Needs Close Monitoring
 - Deteriorating
 - Critical
 
 ---
 
-## ✅ Clinical Outcome
+# Clinical Timeline Highlights
 
-(Available when treatment episode is complete.)
+Automatically summarizes major events.
+
+Examples:
+
+- ICU Admission
+- Intubation
+- Mechanical Ventilation
+- Dialysis
+- Surgery
+- Blood Transfusion
+- Specialist Consultation
+- Transfer
+- ICU Discharge
+
+Tap to view the complete Patient Timeline.
+
+---
+
+# Investigations
+
+Displays a summarized overview.
+
+Example:
+
+- Laboratory Tests
+- ECG
+- Chest X-ray
+- CT
+- MRI
+- Ultrasound
+
+Users may tap to view detailed reports.
+
+---
+
+# Medications
+
+Displays:
+
+- Current Medications
+- Major Medication Changes
+
+Tap to view the complete medication history.
+
+---
+
+# Procedures
+
+Displays all major procedures performed.
+
+Examples:
+
+- Intubation
+- Central Venous Catheter
+- Arterial Line
+- Chest Drain
+- Dialysis
+- Surgery
+
+---
+
+# Clinical Reviews
+
+Displays:
+
+## Hospital Team
+
+- Medical Officer Reviews
+- Consultant Reviews
+
+## Klinimate Team
+
+- Virtual Specialist Reviews
+- Intensivist Reviews
+
+Users may open the complete consultation history.
+
+---
+
+# Patient Intelligence
+
+Displays:
+
+- Clinical Priorities
+- Clinical Risk Assessment
+- Clinical Intelligence Score
+- Suggested Next Steps
+
+AI recommendations remain advisory.
+
+---
+
+# Clinical Outcome
+
+Available after completion of the episode of care.
 
 Displays:
 
@@ -164,50 +236,125 @@ Displays:
 - Improved
 - Stable
 - Referred
-- Left Against Medical Advice
+- Home Care
+- Rehabilitation
+- Left Against Medical Advice (LAMA)
 - Deceased
 
 ---
 
-## 📅 Follow-up Plan
+# Follow-up Plan
 
 Displays:
 
 - Follow-up Required
 - Next Appointment
-- Home Care Required
-- Rehabilitation Required
+- Home Care
+- Rehabilitation
 - Long-term Medications
+- Lifestyle Advice
 - Warning Signs
 - Special Instructions
 
 ---
 
-## 📊 Billing Support Summary
+# Billing & Administrative Summary
 
-Automatically displays:
+Automatically summarizes:
 
 - Total Hospital Stay
 - ICU Days
 - Ward Days
+- Emergency Stay
 - Procedures Performed
 - Investigations Completed
-- In-person Consultant Reviews
-- Klinimate Virtual Specialist Reviews
+- Medical Officer Reviews
+- Consultant Reviews
+- Virtual Specialist Reviews
 
-This information supports hospital billing while final billing remains the responsibility of the healthcare organization.
+This information supports hospital billing.
+
+Final billing remains the responsibility of the healthcare organization.
 
 ---
 
-## 📄 Export
+# Insurance Support Summary
 
-The Patient Intelligence Summary can be exported as:
+When required, the summary automatically organizes information commonly required for insurance documentation.
+
+Examples:
+
+- Admission Details
+- Final Diagnosis
+- Hospital Course
+- Procedures
+- Investigations
+- Clinical Outcome
+- Discharge Plan
+
+Hospitals may edit and finalize the summary before submission.
+
+---
+
+# Review & Finalization
+
+Patient Intelligence Summaries remain editable throughout the active episode of care.
+
+Before discharge, the treating clinician must:
+
+- Review
+- Edit (if required)
+- Finalize
+
+After finalization, the summary becomes part of the permanent clinical record.
+
+---
+
+# Discharge Workflow
+
+When the patient is discharged:
+
+- Patient Intelligence Summary is finalized.
+- Discharge Summary is generated.
+- Referral Summary may be generated.
+- Insurance Summary may be generated.
+- Billing Summary may be generated.
+
+The patient visit automatically closes after **24 hours**.
+
+Closed visits may only be reopened by an Organization Administrator.
+
+---
+
+# Export
+
+The finalized Patient Intelligence Summary may be exported as:
 
 - PDF
+- Patient Intelligence Summary
 - Discharge Summary
 - Referral Summary
-- Billing Summary
 - Insurance Summary
+- Billing Summary
+
+---
+
+# Footer
+
+Every finalized document displays:
+
+```text
+Reviewed & Finalized By
+
+Dr. Suresh
+Consultant Physician
+
+Date & Time
+
+Digitally generated using Klinimate Intelligence
+```
+
+No additional AI disclaimer is displayed.
 
 ---
 
@@ -217,21 +364,21 @@ The Patient Intelligence Summary can be exported as:
 - One-screen overview
 - Expand for details
 - AI-generated
-- Automatically updated
+- Continuously updated
+- Clinician-reviewed
 - Minimal scrolling
-- Simple and intuitive
 - No duplicate documentation
+- Click More • Type Less
 
 ---
 
 # Guiding Principle
 
-The Patient Intelligence Summary should answer three questions within one minute:
+The Patient Intelligence Summary should answer four questions within one minute:
 
-• Who is this patient?
+- Who is this patient?
+- What has happened so far?
+- What is the patient's current clinical status?
+- What should happen next?
 
-• What has happened so far?
-
-• What needs to happen next?
-
-By transforming the complete patient timeline into concise clinical intelligence, Klinimate enables faster, safer, and better-informed clinical decision-making while reducing documentation burden.
+By transforming the complete patient timeline into concise, clinician-reviewed Patient Intelligence, Klinimate enables faster, safer, and better-informed clinical decision-making while reducing documentation burden across the entire continuum of care.
