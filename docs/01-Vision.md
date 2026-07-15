@@ -1,68 +1,43 @@
-# Klinimate Vision
+# 00 – Vision
 
-**Version:** 1.0  
-**Status:** Active  
+**Version:** 2.0  
+**Status:** 🔒 Frozen  
 **Owner:** Dr. Avdhut Kulkarni (Founder & Director)
 
 ---
 
 # Vision
 
-Klinimate is building the world's most user-friendly **AI-powered Clinical Intelligence Platform** that empowers healthcare professionals to deliver **safer, smarter, and more coordinated patient care** across every healthcare setting.
+To become the world's most trusted **AI-powered Clinical Intelligence Platform**, empowering every healthcare organization to deliver safer, smarter, and more connected patient care.
 
-Klinimate seamlessly integrates with existing hospital systems while also functioning as a complete **AI-powered Electronic Medical Record (EMR)** for organizations that do not have one.
+---
+
+# Mission
+
+To simplify clinical workflows through intelligent automation, standardized documentation, Patient Intelligence, and seamless specialist collaboration—while preserving clinician autonomy.
 
 ---
 
 # What We Believe
 
-Healthcare professionals should spend more time caring for patients and less time navigating complex software.
-
-Technology should simplify clinical workflows, enhance decision-making, and improve collaboration without increasing documentation burden.
-
-AI should assist clinicians by providing timely clinical intelligence while always respecting clinical judgement.
-
----
-
-# Our Mission
-
-To make high-quality, AI-assisted clinical intelligence accessible to every healthcare organization, enabling consistent, evidence-informed, and connected patient care across the entire healthcare journey.
+- Clinicians should spend more time caring for patients than documenting.
+- AI should assist clinicians, never replace them.
+- Simplicity is essential for safe healthcare.
+- Every patient deserves standardized, evidence-informed care.
 
 ---
 
-# Our Long-Term Goal
+# Core Principles
 
-To become the world's leading Clinical Intelligence Platform, connecting healthcare professionals, organizations, and AI into one unified ecosystem that improves patient outcomes at scale.
-
----
-
-# Vision Principles
-
-- Clinicians First
-- AI Assists, Clinicians Decide
-- One Patient • One Clinical Record • One Timeline
-- Mobile-First and User-Friendly
-- Integrates with Existing Systems
-- Complete AI-Powered EMR When Required
-- Secure, Scalable, and Standards-Based
-- Built for Every Healthcare Setting
-
----
-
-# Supported Healthcare Settings
-
-- OPD / Primary Care
-- Emergency Department
-- IPD / Hospital Wards
-- Intensive Care Unit (ICU)
-- Rehabilitation Centres
-- Nursing Homes
-- Home Care
-- Long-Term Care
-- Virtual Care / Telemedicine
+- One Patient • One Clinical Record • One Timeline • One Patient Intelligence
+- AI Assists • Clinicians Decide
+- Click More • Type Less
+- Mobile-first
+- Secure by Design
+- Globally Scalable
 
 ---
 
 # Vision Statement
 
-**Empowering every healthcare professional with intelligent, connected, and user-friendly clinical technology to improve patient care—every patient, every encounter, everywhere.**
+**Making intelligent, standardized, and specialist-supported healthcare accessible to every patient, everywhere.**
