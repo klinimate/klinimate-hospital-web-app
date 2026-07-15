@@ -1,4 +1,4 @@
-# 102 – CHANGELOG
+# 100 – CHANGELOG
 
 ## Version 2.0 — Product Foundation
 
