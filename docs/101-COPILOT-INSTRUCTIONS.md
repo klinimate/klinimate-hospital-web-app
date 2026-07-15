@@ -428,11 +428,8 @@ Every line of code should:
 - strengthen Patient Intelligence
 - preserve clinician autonomy
 - scale to thousands of healthcare organizations
+
 Engineering quality always takes priority over development speed.
-
-
-
-
 
 
 
