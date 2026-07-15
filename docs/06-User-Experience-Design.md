@@ -1,10 +1,10 @@
-# Klinimate UI / UX Design
+# 08 – UI / UX Design
 
-Version: 2.0
+**Version:** 2.0
 
-Status: Active
+**Status:** Active
 
-Owner: Dr. Avdhut Kulkarni (Founder & Director)
+**Owner:** Dr. Avdhut Kulkarni (Founder & Director)
 
 ---
 
@@ -12,87 +12,47 @@ Owner: Dr. Avdhut Kulkarni (Founder & Director)
 
 This document defines the official User Interface (UI) and User Experience (UX) standards for the Klinimate Platform.
 
-Every screen within Klinimate must be simple, intuitive, mobile-first, and designed to reduce documentation burden while improving clinical decision-making.
+Every screen within Klinimate must be simple, intuitive, mobile-first, and designed to reduce clinician workload while improving patient care.
+
+Clinical Intelligence should always be presented before detailed clinical documentation.
 
 ---
 
 # Design Philosophy
 
-Klinimate is an AI-Powered Clinical Intelligence Platform.
+Klinimate is an AI-powered Clinical Intelligence Platform.
 
-The interface should feel as simple as WhatsApp while providing intelligent clinical insights.
+The experience should feel like:
 
-Clinicians should spend more time caring for patients and less time documenting.
+**WhatsApp + ChatGPT for Healthcare**
 
-Patient Intelligence should always be the first clinical information presented.
+The interface should help clinicians understand the patient before asking them to review documentation.
+
+Patient Intelligence always comes first.
+
+Documentation supports Patient Intelligence.
 
 ---
 
 # Core Design Principles
 
+Every screen should be:
+
 - Mobile-first
-- AI-first
-- Clinician-first
 - White background
 - Minimal branding
 - Large touch-friendly controls
+- Maximum three taps to any primary function
+- One primary action per screen
+- Fast loading
+- Minimal scrolling
 - Click More • Type Less
 - Search • Select • Save
-- Maximum three taps to any primary action
-- Minimal scrolling
-- Fast loading
-- One primary action per screen
-- Consistent experience across mobile, tablet, and desktop
+- AI Assists • Clinicians Decide
 
 ---
 
-# Navigation Philosophy
-
-Level 1 represents platform navigation.
-
-Level 2 represents patient-specific navigation.
-
----
-
-## Level 1 – Platform Navigation
-
-Clinical users
-
-- 🏥 Patients
-- ➕ Register
-- 🧠 Klinimate
-
-Administrator
-
-- 🏥 Patients
-- ➕ Register
-- 🧠 Klinimate
-- ⚙️ Organization
-
-Navigation remains consistent across all clinical users.
-
-Permissions determine available actions.
-
----
-
-## Level 2 – Patient Navigation
-
-Once a patient is opened, navigation becomes patient-specific.
-
-Examples:
-
-- Patient Dashboard
-- Patient Intelligence
-- Patient Timeline
-- Investigation Details
-- Medication Details
-- Clinical Documents
-
-These pages open with a simple **Back** button and do not display the bottom navigation.
-
----
-
-# Screen 1 – Login
+# Login Screen
 
 Purpose
 
@@ -106,85 +66,95 @@ Display
 - Sign In
 - Forgot Password
 
-After login, the user selects their profile for the current session.
-
-Examples:
-
-- Dr. Suresh
-- Nurse Priya
-- Dr. Shah
-
-The selected profile is automatically used for all documentation until changed.
+After login, users are automatically directed to their role-based workspace.
 
 ---
 
-# Screen 2 – Patients
+# Bottom Navigation
 
-Purpose
+Every Healthcare Organization user sees the same navigation.
 
-Primary landing page after login.
+```
+🏥 Patients
 
-Display
+➕ Register
+
+🧠 Klinimate
+
+⚙️ Organization
+```
+
+Users do not switch applications.
+
+The same navigation is used by:
+
+- Doctors
+- Nurses
+- Consultants
+
+The logged-in profile determines available actions.
+
+---
+
+# Patients Screen
+
+The Patients screen is the default home page.
+
+Display:
 
 - Search Patient
-- Register New Patient
-- Ward
-- ICU
-- Emergency
-- OPD
-- Rehabilitation
-- Home Care
+- Ward Filters
+- Care Setting Filters
+- Patient Cards
 
 Each patient card displays:
 
 - Patient Name
 - Age / Gender
 - Care Setting
-- Bed Number
-- Primary Diagnosis
-- Clinical Status
-- Last Updated
+- Hospital Day
+- Current Clinical Status
+- Patient Intelligence Status
+- Current Alerts (if any)
 
-AI alerts appear directly on the patient card.
-
-Examples:
-
-- Clinical Deterioration
-- Investigation Available
-- Specialist Advice Available
-- Follow-up Required
-
-One tap opens the Patient Dashboard.
+Tapping a patient opens the Patient Intelligence page.
 
 ---
 
-# Screen 3 – Register Patient
+# Register Patient
 
 Purpose
 
-Fast patient registration.
+Register a patient in less than one minute.
 
-Collect
+Display
 
 - Patient Name
 - Age
 - Gender
 - Mobile Number (Optional)
-- UHID / Hospital ID
+- Hospital ID
 - Care Setting
 - Chief Complaint
 
-Target registration time:
+Primary Action
 
-Less than 60 seconds.
+Continue to Patient Intelligence.
 
 ---
 
-# Screen 4 – Patient Dashboard
+# Patient Intelligence
 
-Purpose
+Patient Intelligence is the primary clinical workspace.
 
-The primary clinical workspace throughout the patient's episode of care.
+It is the first page displayed whenever a patient record is opened.
+
+This page answers:
+
+- Who is this patient?
+- What is happening now?
+- What has happened?
+- What should happen next?
 
 ---
 
@@ -194,313 +164,238 @@ Displays
 
 - Patient Name
 - Age / Gender
-- UHID
-- Care Setting
-- Bed Number
+- Hospital ID
+- Current Care Setting
+- Ward / Bed
 - Hospital Day
-- Clinical Status
+- Current Status
 
 ---
 
-## 🧠 Patient Intelligence
+## Patient Intelligence Card
 
-Always displayed as the first clinical card.
+Always displayed first.
+
+Displays:
+
+- AI Clinical Summary
+- Current Clinical Status
+- Clinical Priorities
+- Suggested Next Actions
+- Clinical Intelligence Score
+
+Primary Action
+
+**View Full Patient Intelligence Summary**
+
+---
+
+## Quick Clinical Snapshot
 
 Displays
 
-- Primary Diagnosis
-- Current Clinical Status
-- AI Clinical Summary
-- Clinical Priorities
-- Suggested Next Steps
+❤️ Current Vitals
 
-Quick Statistics
+💊 Active Medications
 
-- Hospital Stay
-- Investigations
-- Medications
-- Procedures
-- Hospital Reviews
-- Virtual Specialist Reviews
+📊 Intake / Output
 
-Tap the card to open the full Patient Intelligence page.
+📅 Today's Tasks
+
+⚠ Clinical Alerts (only when present)
 
 ---
 
-## ❤️ Vitals
+## Clinical Modules
 
-Displays current vital signs.
-
-Primary Action
-
-Update Vitals
-
-Accessible by:
-
-- Doctors
-- Nurses
-
----
-
-## 💧 Intake & Output
-
-Displays current fluid balance.
-
-Primary Action
-
-Update Intake & Output
-
-Accessible by:
-
-- Doctors
-- Nurses
-
----
-
-## 💊 Medication Administration
-
-Displays scheduled medications and administration status.
-
-Primary Action
-
-Record Medication Administration
-
-Accessible by:
-
-- Doctors
-- Nurses
-
----
-
-## 🩺 Medical Notes
-
-Used by:
-
-- RMOs
-- Medical Officers
-- Hospital Consultants
-- Klinimate Virtual Specialists
-
-Supports:
-
-- Type Notes
-- Handwritten Notes (Tablet)
-- Upload Clinical Documents
-
----
-
-## 👩‍⚕️ Nursing Notes
-
-Used by nursing staff.
-
-Supports:
-
-- Structured Nursing Notes
-- Free Text
-- Clinical Observations
-
----
-
-## 🧪 Investigations
+The remaining patient information is accessed through dedicated cards.
 
 Displays:
 
-- Ordered
-- Pending
-- Completed
+- 📝 Medical Notes
+- 👨‍⚕️ Consultant Notes
+- 👩‍⚕️ Nursing Notes
+- 🌐 Virtual Specialist Notes
+- 🧪 Investigations
+- 💊 Medications
+- 💉 Medication Administration
+- 📊 Intake / Output
+- 📄 Clinical Documents
+- ⚕ Procedures
+- 🕒 Patient Timeline
 
-Smart searchable investigation library.
-
-Manual entry always available.
-
----
-
-## 💊 Medications
-
-Displays:
-
-- Current Medications
-- Medication History
-
-Smart searchable medication library.
+Each card opens its own dedicated page.
 
 ---
 
-## ⚕️ Procedures
+## Primary Actions
 
-Displays all procedures performed during the current episode.
-
----
-
-## 📎 Clinical Documents
-
-Supports:
-
-- Laboratory Reports
-- ECG
-- Chest X-ray
-- CT
-- MRI
-- Referral Letters
-- Previous Prescriptions
-- Clinical Photographs
-- Handwritten Notes
-- Other Clinical Documents
+- Add Medical Note
+- Add Nursing Note
+- Update Vitals
+- Record Intake / Output
+- Record Medication Administration
+- Order Investigation
+- Prescribe Medication
+- Upload Clinical Document
+- Request Klinimate Support
+- Discharge Patient
 
 ---
 
-## 📅 Patient Timeline
+# Patient Timeline
 
-Displays every clinical activity chronologically.
+The Timeline displays every clinical event in chronological order.
 
 Examples:
 
-- Registration
 - Medical Notes
 - Nursing Notes
+- Consultant Notes
+- Virtual Specialist Notes
 - Vitals
-- Intake & Output
+- Investigations
 - Medication Administration
-- Investigation Results
 - Procedures
-- Clinical Documents
-- Patient Intelligence Updates
-- Consultant Reviews
-- Virtual Specialist Reviews
+- AI Updates
+- Transfers
+- Discharge
+
+Latest events appear first.
 
 ---
 
-# Screen 5 – Patient Intelligence
+# Klinimate
 
-Purpose
+The Klinimate page connects healthcare organizations with the Klinimate Virtual Specialist Network.
 
-Provide a comprehensive clinical overview of the patient's entire episode of care.
+Display:
 
-Displays
-
-- Clinical Summary
-- Current Clinical Status
-- Clinical Priorities
-- Investigation Summary
-- Medication Summary
-- Procedure Summary
-- Hospital Consultant Reviews
-- Virtual Specialist Reviews
-- Timeline Summary
-- Follow-up Plan
-- Clinical Outcome (after discharge)
-
-The treating clinician may review, edit, and finalize the Patient Intelligence Summary before discharge.
-
-This page opens independently and does not display bottom navigation.
-
----
-
-# Screen 6 – Klinimate
-
-Purpose
-
-Provide access to Klinimate Clinical Intelligence services.
-
-Displays
-
-- ☎️ Request Klinimate Support
+- 📞 Request Klinimate Support
 - 📋 Active Requests
 - 💻 Virtual Consultations
 - 📄 Specialist Advice
-- 👩‍⚕️ Care Coordinator
+- 📜 Consultation History
 
-Support Number
+Support Contact
 
 **+91 77100 82611**
 
-The consultation begins as a phone call and may be upgraded to a video consultation when clinically required.
+The call begins as a standard voice call and may be converted into a video consultation when required.
 
 ---
 
-# Screen 7 – Organization
+# Organization
 
-Administrator only.
+Visible only to Organization Administrators.
 
-Displays
+Displays:
 
-- Organization Profile
-- Doctors
-- Nurses
-- Consultants
+- Organization Information
+- User Management
 - Departments
-- Wards & Beds
-- Permissions
 - Subscription
-- Billing
 - Reports
+- Settings
+
+Doctors, Nurses, and Consultants access their personal profile from the top-right profile menu instead of the Organization page.
 
 ---
 
-# Color Philosophy
+# User Profile
 
-Primary Brand
+Each user selects their profile after login.
 
-Navy Blue
+Examples:
 
-Interactive Actions
+- Doctor
+- Nurse
+- Consultant
 
-Teal
+The selected profile remains active throughout the session.
+
+The system automatically records the active user for:
+
+- Clinical Notes
+- Nursing Notes
+- Consultant Notes
+- Vitals
+- Intake / Output
+- Medication Administration
+
+Users do not repeatedly select their name while documenting.
+
+---
+
+# Visual Design
+
+Background
+
+White
+
+Brand Colour
+
+Klinimate Blue
+
+Action Colour
+
+Klinimate Teal
 
 Clinical Status
 
-- Green – Stable
-- Yellow – Needs Review
-- Red – Critical
-- Black – Deceased
+🟢 Stable
 
-Clinical colours must never be used for branding.
+🟡 Needs Review
 
----
+🟠 Urgent
 
-# Typography
+🔴 Critical
 
-Use modern system fonts.
+⚫ Deceased
 
-Preferred:
-
-- Inter
-- SF Pro
-- System Font
-
-High contrast.
-
-Large touch targets.
-
-Optimized for prolonged clinical use.
+Clinical colours are reserved exclusively for patient status.
 
 ---
 
 # User Experience Goals
 
-A first-time clinician should be able to:
+Every healthcare professional should be able to:
 
 - Register a patient
+- Understand the patient's condition within one minute
+- Update documentation
 - Review Patient Intelligence
-- Update Vitals
-- Record Intake & Output
-- Record Medication Administration
-- Add Medical Notes
-- Add Nursing Notes
-- Order Investigations
-- Prescribe Medications
 - Request Klinimate Support
+- Complete routine documentation
 
 without formal training.
 
 ---
 
+# Design Principles
+
+- Patient Intelligence First
+- Mobile-first
+- One Patient • One Clinical Record • One Timeline
+- Click More • Type Less
+- Search • Select • Save
+- AI Assists • Clinicians Decide
+- Minimal Typing
+- Minimal Scrolling
+- One Primary Action per Screen
+- Consistent Navigation
+- Fast and Intuitive
+
+---
+
 # Guiding Principle
 
-Every screen should immediately answer three questions:
+Every Klinimate screen should immediately answer:
 
 - Who is this patient?
-- What is happening now?
+- What is the patient's current clinical status?
 - What should happen next?
 
-Patient Intelligence should always be presented before detailed clinical information, enabling healthcare professionals to make faster, safer, and better-informed decisions while minimizing documentation burden.
+Patient Intelligence is the primary clinical workspace within the Klinimate Platform.
+
+Every other screen exists to support or enrich Patient Intelligence, enabling healthcare professionals to deliver faster, safer, and more coordinated patient care.
