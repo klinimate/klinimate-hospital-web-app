@@ -1,4 +1,4 @@
-# 24 – Klinimate Intelligence Architecture
+# 28 – Klinimate Intelligence Architecture
 
 **Version:** 2.0  
 **Status:** Active  
