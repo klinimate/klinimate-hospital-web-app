@@ -1,4 +1,4 @@
-# 08 – UI / UX Design
+# 06-User-Experience-Design
 
 **Version:** 2.0
 
