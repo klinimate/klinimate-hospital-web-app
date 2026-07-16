@@ -1,214 +1,467 @@
-Klinimate Hospital Platform – Product Requirement Document (PRD)
+# KLINIMATE – Product Requirements Document (PRD)
 
-Product Name
-
-Klinimate Hospital
-
----
-
-Product Overview
-
-Klinimate Hospital is an AI-powered Clinical Decision Support System (CDSS) and Klinimate Clinical Command Centre (KCCC) platform designed for secondary and rural hospitals.
-
-The platform enables hospital doctors to rapidly assess patients, receive AI-generated clinical summaries, identify high-risk patients early, and obtain specialist recommendations through a simple, standardized clinical workflow.
-
-Klinimate is designed to be extremely simple, mobile-first, and usable without formal training. Every workflow is optimized to reduce documentation burden while improving clinical decision-making, patient safety, and hospital efficiency.
+**Version:** 2.0  
+**Status:** Product Foundation Frozen  
+**Owner:** Dr. Avdhut Kulkarni (Founder & Director)
 
 ---
 
-Product Vision
+# Tagline
 
-To become the world's simplest and most trusted AI-powered Clinical Command Centre, empowering every hospital with intelligent clinical decision support and seamless access to specialist expertise.
-
----
-
-Product Goals
-
-- Reduce time to clinical decision-making.
-- Standardize patient assessment.
-- Improve documentation quality.
-- Identify deteriorating patients early.
-- Reduce unnecessary referrals.
-- Improve patient outcomes.
-- Provide timely access to specialist expertise.
-- Minimize consultant workload through AI-assisted triage.
-- Enable one centralized Klinimate Clinical Command Centre to efficiently support multiple hospitals.
+**AI-Powered Clinical Intelligence for Hospitals & Health Systems**
 
 ---
 
-Target Users
+# Product Principle
 
-Hospital Medical Officer
+> **Every feature built in Klinimate must simplify clinical workflows, reduce documentation burden, and improve clinical decision-making while keeping the clinician in control.**
 
-Responsibilities
-
-- Create new clinical cases.
-- Enter patient information.
-- Review AI clinical summaries.
-- Request expert review.
-- Receive consultant recommendations.
-- Update patient progress.
-- Close completed cases.
+If a feature does not satisfy this principle, it does not belong in the Klinimate platform.
 
 ---
 
-Klinimate Care Coordinator (KCC)
+# 1. Product Overview
 
-Responsibilities
+## What is Klinimate?
 
-- Review incoming clinical cases.
-- Ensure patient information is complete.
-- Coordinate communication between partner hospitals and Klinimate consultants.
-- Monitor all active clinical cases.
-- Escalate cases according to predefined clinical protocols.
-- Track response times.
-- Ensure timely completion of every case.
+Klinimate is an **AI-Powered Clinical Intelligence Platform** designed to simplify patient care through intelligent clinical workflows, AI-assisted Clinical Decision Support (CDSS), structured documentation, virtual specialist collaboration, and coordinated patient management.
+
+The platform supports the complete continuum of care through one unified clinical workflow across every healthcare setting.
+
+Supported organizations include:
+
+- Hospitals
+- Health Systems
+- Rural Hospitals
+- Nursing Homes
+- Rehabilitation Centres
+- Clinics & Polyclinics
+- Home Care Providers
+- Day Care Centres
+- Advanced Elder Care Facilities
+
+Klinimate can operate as:
+
+- An AI-powered Clinical Intelligence layer integrated with existing Hospital Information Systems (HIS) and Electronic Medical Records (EMR).
+- A complete AI-powered Electronic Medical Record (EMR) for organizations without a modern digital clinical system.
+
+Klinimate is designed to be:
+
+- Mobile-first
+- AI-first
+- Clinician-first
+- User-friendly
+- Fast to learn
+- Easy to deploy
+- Scalable
 
 ---
 
-Klinimate Consultant
+# 2. Vision
 
-Examples
+To build the world's most trusted AI-Powered Clinical Intelligence Platform that empowers healthcare professionals to deliver safer, faster, standardized, and specialist-supported patient care across every healthcare setting.
 
-- Intensivist
+---
+
+# 3. Mission
+
+To simplify healthcare by combining:
+
+- AI Clinical Intelligence
+- Universal Clinical Documentation
+- Clinical Decision Support
+- Virtual Specialist Network
+- Care Coordination
+- Intelligent Clinical Workflows
+
+into one intuitive platform.
+
+---
+
+# 4. Product Philosophy
+
+One Platform.
+
+One Patient.
+
+One Clinical Record.
+
+One Timeline.
+
+One Klinimate Intelligence.
+
+**AI Assists. Clinicians Decide.**
+
+---
+
+# 5. Product Principles
+
+- Mobile-first
+- AI-first
+- Clinician-first
+- Extremely user-friendly
+- Click More • Type Less
+- Search • Select • Save
+- Maximum Clinical Intelligence
+- Minimum Data Entry
+- Structured documentation
+- Natural language documentation
+- AI assists clinicians
+- Final decisions remain with clinicians
+- Integrates with existing EMRs
+- Functions as a complete AI-powered EMR where required
+- One universal workflow across every healthcare setting
+
+---
+
+# 6. Supported Care Settings
+
+A single platform supports:
+
+- OPD
+- Emergency
+- IPD
+- ICU
+- Rehabilitation
+- Home Care
+- Virtual Consultation
+
+The same patient record continues throughout every stage of care.
+
+---
+
+# 7. User Workspaces
+
+Klinimate provides six role-based workspaces.
+
+## 1. Healthcare Organization Workspace
+
+Users include:
+
+- Consultants
+- Medical Officers
+- RMOs
+- Nurses
+
+Responsibilities:
+
+- Register Patients
+- Clinical Documentation
+- Record Vitals
+- Order Investigations
+- Prescribe Medications
+- View Klinimate Intelligence
+- Request Klinimate Support
+- Follow-up
+- Discharge
+
+---
+
+## 2. Klinimate Care Coordinator
+
+Coordinates:
+
+- Organizations
+- Consultation Requests
+- Specialist Assignment
+- Follow-up
+- Case Tracking
+- Communication
+
+---
+
+## 3. Klinimate Intensivist
+
+Reviews assigned:
+
+- Yellow Patients
+- Red Patients
+- Black Patients
+
+Provides:
+
+- ICU Advice
+- Virtual Rounds
+- Escalation
+- Follow-up
+
+---
+
+## 4. Klinimate Specialist
+
+Supports specialties including:
+
 - Physician
 - Cardiologist
 - Pulmonologist
-- Nephrologist
 - Neurologist
+- Nephrologist
 - Endocrinologist
-- Infectious Disease Specialist
+- Infectious Disease
+- Psychiatrist
+- Others
 
-Responsibilities
+Provides:
 
-- Review escalated clinical cases.
-- Validate or modify AI recommendations.
-- Provide structured clinical advice.
-- Recommend escalation, transfer or continued local management.
-- Close reviewed cases.
-
----
-
-Hospital Administrator
-
-Responsibilities
-
-- Manage hospital users.
-- View hospital analytics.
-- Monitor quality indicators.
-- Review response times.
-- Manage hospital subscription.
+- Virtual Consultation
+- Clinical Advice
+- Prescription
+- Follow-up
 
 ---
 
-Klinimate Administrator
+## 5. Klinimate Command Centre
 
-Responsibilities
+Monitors:
 
-- Manage partner hospitals.
-- Manage subscriptions.
-- Manage consultants.
-- Configure AI protocols.
-- Configure clinical workflows.
-- Monitor overall platform performance.
-- Audit clinical quality.
-
----
-
-Product Principles
-
-- Mobile-first.
-- Extremely simple workflow.
-- Usable without formal training.
-- Patient entry completed in under 60 seconds.
-- Maximum three taps to reach any primary function.
-- AI reduces documentation burden.
-- Every screen has only one primary action.
-- Simple enough for every rural doctor.
+- Connected Organizations
+- Active Consultations
+- Critical Patients
+- AI Alerts
+- Regional Performance
+- Care Coordinator Performance
+- Specialist Availability
 
 ---
 
-Core Philosophy
+## 6. Klinimate Administrator
 
-Klinimate is designed to augment clinicians, not replace them.
+Manages:
 
-AI provides structured clinical decision support by organizing patient information, identifying clinical priorities, and recommending evidence-based workflows.
-
-Final clinical decisions remain the responsibility of the treating clinician and specialist consultant.
-
-Every feature in Klinimate must:
-
-- Simplify clinical workflows.
-- Reduce documentation burden.
-- Improve clinical decision-making.
-- Be intuitive enough to use without formal training.
-- Support high-quality patient care through intelligent automation.
+- Organizations
+- Users
+- Specialists
+- Care Coordinators
+- Subscriptions
+- Payments
+- AI Configuration
+- Platform Analytics
 
 ---
 
-Core Product Modules
+# 8. Universal Patient Workflow
+
+Every patient follows the same workflow regardless of care setting.
+
+Patient Registration
+
+↓
+
+Clinical Assessment
+
+↓
+
+Vitals
+
+↓
+
+Clinical Notes
+
+↓
+
+Clinical Documents
+
+↓
+
+Investigations
+
+↓
+
+Medications
+
+↓
+
+Klinimate Intelligence
+
+↓
+
+Treatment Plan
+
+↓
+
+Follow-up
+
+↓
+
+Discharge
+
+↓
+
+Home Care / Long-term Follow-up
+
+---
+
+# 9. Universal Clinical Documentation
+
+Each clinical entry records:
+
+- Seen By
+- Visit Type
+- Clinical Notes
+- Attached Clinical Documents
+- AI Clinical Summary
+- Timestamp
+
+Notes remain editable for 10 minutes before becoming permanently locked.
+
+---
+
+# 10. Smart Clinical Entry
+
+Clinicians should spend minimal time typing.
+
+Klinimate provides:
+
+- Smart Diagnosis Search
+- Smart Investigation Search
+- Smart Medication Search
+- Manual Entry (always available)
+
+---
+
+# 11. Clinical Documents
+
+Supported documents include:
+
+- Handwritten Notes
+- Referral Letters
+- Previous Prescriptions
+- Discharge Summaries
+- Laboratory Reports
+- ECG
+- Chest X-ray
+- Clinical Photographs
+- Other Clinical Documents
+
+Klinimate Intelligence analyzes supported documents and incorporates relevant findings into the clinical assessment.
+
+---
+
+# 12. Klinimate Intelligence
+
+Automatically generates:
+
+- AI Clinical Summary
+- Clinical Priorities
+- Suggested Differential Diagnoses
+- Suggested Investigations
+- Treatment Considerations
+- Clinical Alerts
+- Confidence Level
+- Recommendation to Request Klinimate Support
+
+AI never confirms diagnoses or replaces clinician judgement.
+
+---
+
+# 13. Virtual Specialist Network
+
+Hospitals may request virtual support from:
+
+- Physician
+- Intensivist
+- Cardiologist
+- Neurologist
+- Pulmonologist
+- Nephrologist
+- Endocrinologist
+- Other Specialists
+
+Workflow:
+
+Hospital
+
+↓
+
+Care Coordinator
+
+↓
+
+Specialist Assignment
+
+↓
+
+Virtual Consultation
+
+↓
+
+Clinical Advice
+
+↓
+
+Prescription (where applicable)
+
+↓
+
+Follow-up
+
+---
+
+# 14. Core Product Modules
 
 - Authentication
-- Hospital Dashboard
-- New Clinical Case
-- AI Clinical Decision Support (CDSS)
-- AI Clinical Summary
-- AI Risk Assessment
-- AI Confidence Score
-- Expert Review Request
-- Klinimate Care Coordinator Dashboard
-- Consultant Dashboard
+- Healthcare Organization Workspace
+- Universal Patient Registration
+- Patient Timeline
+- Clinical Notes
+- Smart Search Engine
+- Vitals
+- Investigations
+- Medications
+- Klinimate Intelligence
+- Clinical Decision Support
+- Clinical Document Analysis
+- Medical Image Analysis
 - Notifications
-- Case Timeline
-- Case Status Tracking
-- Hospital Analytics
-- Settings
+- Care Coordinator Workspace
+- Specialist Workspace
+- Intensivist Workspace
+- Command Centre
+- Administration
+- Analytics
 
 ---
 
-MVP Scope (Version 1)
+# 15. MVP Scope
 
 Version 1 includes:
 
-- Secure Login
-- Hospital Dashboard
-- New Clinical Case
-- AI Clinical Summary
-- AI Risk Assessment
-- AI Confidence Score
-- Expert Review Request
-- Klinimate Care Coordinator Dashboard
-- Consultant Dashboard
+- Login
+- Home
+- Universal Patient Registration
+- Patient Timeline
+- Clinical Notes
+- AI Clinical Intelligence
+- Specialist Request
+- Care Coordinator Workspace
 - Notifications
-- Case Timeline
-- Case Status Tracking
-
-Everything else will be added after pilot validation.
+- Universal Patient Dashboard
 
 ---
 
-Success Metrics
+# 16. Success Metrics
 
-The platform should achieve:
-
-- Patient case creation in under 60 seconds.
-- AI summary generation in under 15 seconds.
-- Minimal training requirement.
-- High clinician adoption.
-- Standardized documentation across hospitals.
-- Improved response time for specialist review.
-- Efficient support of multiple hospitals by one Klinimate Clinical Command Centre.
+- Patient Registration < 60 seconds
+- AI Summary < 15 seconds
+- High Clinician Adoption
+- Minimal Training Required
+- Reduced Documentation Burden
+- Faster Specialist Response
+- Improved Clinical Standardization
+- Better Patient Outcomes
 
 ---
 
-Long-Term Vision
+# 17. Long-Term Vision
 
-Klinimate is an AI-powered Clinical Command Centre that enables hospitals to deliver standardized, specialist-supported patient care through intelligent clinical decision support, streamlined workflows, and virtual expert collaboration.
+Klinimate aims to become the world's most trusted AI-Powered Clinical Intelligence Platform, enabling every healthcare organization to deliver intelligent, coordinated, specialist-supported care through one universal clinical workflow.
 
-The platform combines AI-assisted Clinical Decision Support (CDSS), Klinimate Care Coordinators (KCC), and a network of specialist consultants to help hospitals make timely, evidence-informed clinical decisions while reducing unnecessary referrals and improving quality of care.
+Over time, Klinimate Intelligence will evolve into the clinical intelligence layer that supports every patient encounter, every clinician, and every healthcare organization across the continuum of care.
 
-Designed as a scalable Software-as-a-Service (SaaS) platform, Klinimate empowers one centralized command centre to efficiently support multiple hospitals through standardized workflows, intelligent automation, and expert oversight.
+---
 
-As the platform grows, Klinimate will continuously expand its AI capabilities, predictive analytics, specialist network, workflow automation, and hospital quality intelligence while remaining simple, intuitive, mobile-first, and clinically reliable.
+# Founder Principle
 
-The long-term objective is to make Klinimate the trusted AI-powered clinical operating platform for hospitals across India and globally.
+> **Every feature built in Klinimate must simplify clinical workflows, reduce documentation burden, and improve clinical decision-making while keeping the clinician in control.**
+
+This principle is the final checkpoint for every design, workflow, AI capability, and product decision within the Klinimate ecosystem.

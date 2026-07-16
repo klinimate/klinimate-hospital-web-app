@@ -1,67 +1,43 @@
-Klinimate Hospital Platform – Vision
+# 01 – Vision
 
-Vision
-
-To empower every secondary and rural hospital with AI-assisted clinical intelligence and seamless access to specialist expertise, enabling better patient care regardless of location.
-
----
-
-Mission
-
-To build the world's simplest AI-powered Clinical Decision Support and Hospital Command Centre platform that helps hospitals deliver standardized, timely and expert-guided care.
+**Version:** 2.0  
+**Status:** 🔒 Frozen  
+**Owner:** Dr. Avdhut Kulkarni (Founder & Director)
 
 ---
 
-Problem
+# Vision
 
-Many secondary hospitals face:
-
-- Limited access to intensivists and specialists
-- Junior doctors managing critically ill patients
-- Delayed clinical decisions
-- Non-standardized patient assessment
-- Poor documentation
-- Unnecessary referrals
-- Lack of continuous expert support
+To become the world's most trusted **AI-powered Clinical Intelligence Platform**, empowering every healthcare organization to deliver safer, smarter, and more connected patient care.
 
 ---
 
-Our Solution
+# Mission
 
-Klinimate Hospital is an AI-powered Clinical Decision Support System (CDSS) combined with a Clinical Command Centre.
-
-The platform enables hospitals to:
-
-- Enter patient information in under one minute
-- Receive AI-generated clinical summaries
-- Identify high-risk patients early
-- Obtain specialist recommendations when required
-- Standardize clinical workflows
-- Improve documentation and quality of care
+To simplify clinical workflows through intelligent automation, standardized documentation, Patient Intelligence, and seamless specialist collaboration—while preserving clinician autonomy.
 
 ---
 
-Core Philosophy
+# What We Believe
 
-AI assists.
-
-Doctors decide.
-
-Klinimate augments clinicians rather than replacing them.
-
----
-
-Product Principles
-
-- Simple enough for every doctor.
-- Mobile-first.
-- Designed for rural and secondary hospitals.
-- Complete patient entry in under 60 seconds.
-- Maximum three taps to reach any important function.
-- AI should reduce workload, not increase it.
+- Clinicians should spend more time caring for patients than documenting.
+- AI should assist clinicians, never replace them.
+- Simplicity is essential for safe healthcare.
+- Every patient deserves standardized, evidence-informed care.
 
 ---
 
-Long-Term Goal
+# Core Principles
 
-Become the operating system for AI-assisted hospital care, connecting hospitals with intelligent clinical decision support and virtual specialist expertise through a single, easy-to-use platform.
+- One Patient • One Clinical Record • One Timeline • One Patient Intelligence
+- AI Assists • Clinicians Decide
+- Click More • Type Less
+- Mobile-first
+- Secure by Design
+- Globally Scalable
+
+---
+
+# Vision Statement
+
+**Making intelligent, standardized, and specialist-supported healthcare accessible to every patient, everywhere.**
