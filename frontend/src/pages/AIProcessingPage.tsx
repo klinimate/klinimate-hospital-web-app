@@ -74,7 +74,6 @@ export function AIProcessingPage() {
   const location = useLocation()
   const state = (location.state ?? {}) as AIProcessingLocationState
 
-  const patientName = state.patientName ?? 'Anita Kulkarni'
   const patientId = state.patientId ?? 'PT-2048'
   const [progress, setProgress] = useState(0)
   const [phase, setPhase] = useState<'processing' | 'complete'>('processing')
@@ -99,7 +98,7 @@ export function AIProcessingPage() {
         }
         return next
       })
-    }, 40)
+    }, 25)
 
     return () => window.clearInterval(timer)
   }, [phase])
@@ -109,7 +108,7 @@ export function AIProcessingPage() {
 
     const timer = window.setTimeout(() => {
       navigate(`/patients/${patientId}/dashboard`)
-    }, 1000)
+    }, 300)
 
     return () => window.clearTimeout(timer)
   }, [phase, navigate, patientId])

@@ -7,6 +7,7 @@ import { buildMockAssessment, type AIAssessmentData, type TriageLevel } from '@/
 
 type AIAssessmentLocationState = {
   assessment?: AIAssessmentData
+  patientId?: string
 }
 
 interface AssessmentSectionProps {
@@ -35,6 +36,7 @@ export function AIAssessmentPage() {
   const location = useLocation()
   const locationState = (location.state ?? {}) as AIAssessmentLocationState
   const assessment = locationState.assessment ?? buildMockAssessment('Anita Kulkarni')
+  const patientId = locationState.patientId ?? 'PT-2048'
   const [statusMessage, setStatusMessage] = useState('')
 
   const triageClassName = useMemo(
@@ -138,9 +140,17 @@ export function AIAssessmentPage() {
             type="button"
             size="lg"
             fullWidth
-            onClick={() => setStatusMessage('Case sent to Klinimate Intensivist (mock).')}
+            onClick={() => {
+              setStatusMessage('Submitted to AI processing (mock).')
+              navigate('/patients/ai-processing', {
+                state: {
+                  patientName: assessment.patientName,
+                  patientId,
+                },
+              })
+            }}
           >
-            Send to Klinimate Intensivist
+            Submit to AI
           </Button>
           <Button
             type="button"

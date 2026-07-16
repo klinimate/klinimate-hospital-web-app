@@ -15,18 +15,6 @@ const dashboardSections = [
 ] as const
 
 export function DashboardPage() {
-  const now = new Date()
-  const formattedDate = now.toLocaleDateString('en-IN', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  })
-  const formattedTime = now.toLocaleTimeString('en-IN', {
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-
   return (
     <AppLayout>
       <div className="flex flex-col gap-4">
@@ -53,7 +41,7 @@ export function DashboardPage() {
 
         {/* Action buttons directly below the doctor card */}
         <div className="grid grid-cols-3 gap-3">
-          <Link to="/patients/new" className="block">
+          <Link to="/patients/ai-assessment" className="block">
             <Button size="lg" fullWidth>
               + New Patient
             </Button>
