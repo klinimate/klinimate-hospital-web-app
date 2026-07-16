@@ -15,6 +15,17 @@
   --color-primary-800: #115e59;
   --color-primary-900: #134e4a;
 
+  --color-brand-50: #e8effa;
+  --color-brand-100: #cdd9f0;
+  --color-brand-200: #9cb9e0;
+  --color-brand-300: #6d96cb;
+  --color-brand-400: #486fae;
+  --color-brand-500: #304f88;
+  --color-brand-600: #243c6b;
+  --color-brand-700: #1b325d;
+  --color-brand-800: #15284d;
+  --color-brand-900: #0b1f3f;
+
   --color-surface: #ffffff;
   --color-surface-muted: #f8fafc;
   --color-border: #e2e8f0;
@@ -42,5 +53,25 @@
 
   #root {
     @apply min-h-dvh;
+  }
+
+  .bg-brand-900 {
+    background-color: var(--color-brand-900);
+  }
+
+  .bg-brand-50 {
+    background-color: var(--color-brand-50);
+  }
+
+  .text-brand-100 {
+    color: var(--color-brand-100);
+  }
+
+  .text-brand-700 {
+    color: var(--color-brand-700);
+  }
+
+  .border-brand-700 {
+    border-color: var(--color-brand-700);
   }
 }

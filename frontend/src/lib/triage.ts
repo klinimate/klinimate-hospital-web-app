@@ -1,8 +1,15 @@
+import { TRIAGE } from '@/config/clinical/triage'
+import VITAL_THRESHOLDS from '@/config/clinical/vitals'
+import ALERTS from '@/config/clinical/alerts'
+import ACTION_CHECKLISTS from '@/config/clinical/actions'
+
 export type TriageLevel = 'GREEN' | 'YELLOW' | 'RED' | 'BLACK'
 
 interface TriageResult {
   level: TriageLevel
   label: string
+  colour: string
+  escalationLevel: string
   colorClass: string
   redFlags: string[]
   recommendedActions: string[]
@@ -11,8 +18,12 @@ interface TriageResult {
 
 function parseNumber(value?: string) {
   if (!value) return NaN
-  const matched = value.match(/-?\d+/)
+  const matched = value.match(/-?\d+(?:\.\d+)?/)
   return matched ? Number(matched[0]) : NaN
+}
+
+function hasCriticalKeyword(text: string) {
+  return /cardiac arrest|no palpable pulse|no pulse|no signs of life|unresponsive/i.test(text)
 }
 
 export function computeTriageFromVitals(vitals: Record<string, string>, patientText = ''): TriageResult {
@@ -20,82 +31,85 @@ export function computeTriageFromVitals(vitals: Record<string, string>, patientT
   const hr = parseNumber(vitals.pulse)
   const spo2 = parseNumber(vitals.spo2)
   const temp = parseNumber(vitals.temperature)
+  const rr = parseNumber(vitals.respiratoryRate)
 
   const redFlags: string[] = []
 
-  // BLACK criteria (best-effort heuristics)
-  if (/unresponsive|no response|no palpable pulse|no pulse|cardiac arrest/i.test(patientText)) {
+  // BLACK: immediate life-threat based on notes/keywords
+  if (hasCriticalKeyword(patientText)) {
     redFlags.push('Unresponsive / no signs of life')
+    const cat = TRIAGE.BLACK
     return {
       level: 'BLACK',
-      label: 'BLACK – Cardiac Arrest / No Signs of Life',
+      label: `${cat.title} – ${cat.description}`,
+      colour: cat.colour,
+      escalationLevel: cat.escalationLevel,
       colorClass: 'bg-black text-white',
       redFlags,
-      recommendedActions: [
-        'Start CPR/ACLS immediately',
-        'Activate Code Blue',
-        'Klinimate Intensivist notified',
-      ],
-      alertMessage: '⚫ Code Blue Activated – Klinimate Intensivist Alerted',
+      recommendedActions: ACTION_CHECKLISTS.BLACK,
+      alertMessage: ALERTS.callKlinimateIntensivistImmediately.recommendedAction,
     }
   }
 
-  // RED criteria
-  if ((spo2 && spo2 < 90) || (systolic && systolic < 90) || (hr && hr > 120) || /altered mental status|confused|agitated/i.test(patientText)) {
-    if (spo2 && spo2 < 90) redFlags.push(`SpO₂ ${spo2}%`)
-    if (systolic && systolic < 90) redFlags.push(`SBP ${systolic} mmHg`)
-    if (hr && hr > 120) redFlags.push(`HR ${hr}/min`)
-    if (/dehydration|dry lips|poor skin turgor|sunken eyes/i.test(patientText)) redFlags.push('Signs of dehydration')
+  // RED: any critical thresholds
+  const isRed = (typeof spo2 === 'number' && !Number.isNaN(spo2) && spo2 <= (VITAL_THRESHOLDS.spo2.critical?.high ?? 89)) ||
+    (typeof systolic === 'number' && !Number.isNaN(systolic) && systolic < (VITAL_THRESHOLDS.bp.systolic.warning?.low ?? 90)) ||
+    (typeof hr === 'number' && !Number.isNaN(hr) && hr > (VITAL_THRESHOLDS.pulse.warning?.high ?? 120)) ||
+    (/(altered mental status|confused|agitated|unresponsive)/i.test(patientText))
 
+  if (isRed) {
+    if (!Number.isNaN(spo2)) redFlags.push(`SpO₂ ${spo2}%`)
+    if (!Number.isNaN(systolic)) redFlags.push(`SBP ${systolic} mmHg`)
+    if (!Number.isNaN(hr)) redFlags.push(`HR ${hr}/min`)
+    const cat = TRIAGE.RED
     return {
       level: 'RED',
-      label: 'RED – Critical',
+      label: `${cat.title} – ${cat.description}`,
+      colour: cat.colour,
+      escalationLevel: cat.escalationLevel,
       colorClass: 'bg-rose-600 text-white',
       redFlags,
-      recommendedActions: [
-        'Immediate medical review',
-        'Klinimate Intensivist notified',
-        'Start emergency management',
-        'Prepare ICU admission or referral',
-      ],
-      alertMessage: '🔴 Urgent Alert Sent to Klinimate Intensivist',
+      recommendedActions: ACTION_CHECKLISTS.RED,
+      alertMessage: ALERTS.callKlinimateIntensivistImmediately.recommendedAction,
     }
   }
 
-  // YELLOW criteria
-  if ((spo2 && spo2 < 94) || (systolic && systolic < 100) || (hr && hr > 100) || (temp && temp >= 38) || /chest pain|breathless|breathlessness|mild respiratory/i.test(patientText)) {
-    if (spo2 && spo2 < 94) redFlags.push(`SpO₂ ${spo2}%`)
-    if (systolic && systolic < 100) redFlags.push(`SBP ${systolic} mmHg`)
-    if (hr && hr > 100) redFlags.push(`HR ${hr}/min`)
-    if (temp && temp >= 38) redFlags.push(`Temp ${temp}°C`)
+  // YELLOW: warning thresholds
+  const isYellow = (typeof spo2 === 'number' && !Number.isNaN(spo2) && spo2 < (VITAL_THRESHOLDS.spo2.warning?.low ?? 94)) ||
+    (typeof systolic === 'number' && !Number.isNaN(systolic) && systolic < (VITAL_THRESHOLDS.bp.systolic.normal?.low ?? 100)) ||
+    (typeof hr === 'number' && !Number.isNaN(hr) && hr > (VITAL_THRESHOLDS.pulse.normal?.high ?? 100)) ||
+    (typeof temp === 'number' && !Number.isNaN(temp) && temp >= (VITAL_THRESHOLDS.temperature.warning?.high ?? 38)) ||
+    (typeof rr === 'number' && !Number.isNaN(rr) && rr > (VITAL_THRESHOLDS.respiratoryRate.warning?.high ?? 24)) ||
+    (/chest pain|breathless|breathlessness|mild respiratory/i.test(patientText))
 
+  if (isYellow) {
+    if (!Number.isNaN(spo2)) redFlags.push(`SpO₂ ${spo2}%`)
+    if (!Number.isNaN(systolic)) redFlags.push(`SBP ${systolic} mmHg`)
+    if (!Number.isNaN(hr)) redFlags.push(`HR ${hr}/min`)
+    const cat = TRIAGE.YELLOW
     return {
       level: 'YELLOW',
-      label: 'YELLOW – Needs Review',
-      colorClass: 'bg-amber-400 text-amber-900',
+      label: `${cat.title} – ${cat.description}`,
+      colour: cat.colour,
+      escalationLevel: cat.escalationLevel,
+      colorClass: 'bg-amber-500 text-white',
       redFlags,
-      recommendedActions: [
-        'Review by treating doctor',
-        'Repeat vital signs',
-        'Order appropriate investigations',
-        'Increase monitoring frequency',
-        'Klinimate Intensivist will be notified automatically',
-      ],
-      alertMessage: '🟡 Klinimate Intensivist Notified – Awaiting Clinical Review',
+      recommendedActions: ACTION_CHECKLISTS.YELLOW,
+      alertMessage: ALERTS.notifyKlinimateIntensivist.recommendedAction,
     }
   }
 
   // Default GREEN
+  const catGreen = TRIAGE.GREEN
   return {
     level: 'GREEN',
-    label: 'GREEN – Stable',
+    label: `${catGreen.title} – ${catGreen.description}`,
+    colour: catGreen.colour,
+    escalationLevel: catGreen.escalationLevel,
     colorClass: 'bg-emerald-600 text-white',
     redFlags: [],
-    recommendedActions: [
-      'Continue routine management',
-      'Routine monitoring',
-      'Continue treatment as planned',
-    ],
+    recommendedActions: ACTION_CHECKLISTS.GREEN,
+    alertMessage: ALERTS.noEscalationRequired.recommendedAction,
   }
 }
 

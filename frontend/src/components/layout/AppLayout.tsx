@@ -7,7 +7,9 @@ interface AppLayoutProps {
 
 export function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-lg flex-col bg-surface-muted">
+    <div className="mx-auto flex min-h-dvh w-full max-w-screen-2xl flex-col bg-surface-muted">
+      {/* Global branding removed — keep authenticated pages free of marketing */}
+
       <main
         className="flex-1 px-4 pt-4"
         style={{

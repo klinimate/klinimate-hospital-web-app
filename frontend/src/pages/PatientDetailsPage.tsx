@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { patients } from '@/data/patients'
 import { computeTriageForPatient } from '@/lib/triage'
 import { TriageCard } from '@/components/ui/TriageCard'
+import ESCALATION from '@/config/clinical/escalation'
 
 const demographicFields = [
   { label: 'ID', value: 'id' },
@@ -36,6 +37,23 @@ export function PatientDetailsPage() {
     if (!patient) return null
     return computeTriageForPatient(patient)
   }, [patient])
+
+  function handleEscalate() {
+    if (!patient) return
+    const entry = {
+      patientId: patient.id,
+      to: ESCALATION.INTENSIVIST.role,
+      method: ESCALATION.INTENSIVIST.contactMethods[0],
+      time: new Date().toISOString(),
+    }
+    const key = 'klinimate-escalations'
+    const raw = window.localStorage.getItem(key)
+    const items = raw ? JSON.parse(raw) : []
+    items.push(entry)
+    window.localStorage.setItem(key, JSON.stringify(items))
+    // eslint-disable-next-line no-console
+    console.info('Escalation recorded', entry)
+  }
 
   useEffect(() => {
     if (!triage || !patient) return
@@ -292,7 +310,7 @@ export function PatientDetailsPage() {
           <Button size="lg" fullWidth>
             Add Note
           </Button>
-          <Button variant="secondary" size="lg" fullWidth>
+          <Button variant="secondary" size="lg" fullWidth onClick={handleEscalate}>
             Escalate Case
           </Button>
         </section>

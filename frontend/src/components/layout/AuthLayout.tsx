@@ -6,7 +6,7 @@ interface AuthLayoutProps {
 
 export function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-lg flex-col justify-center bg-surface-muted px-4 py-8">
+    <div className="flex min-h-dvh w-full items-center justify-start bg-white px-4 pt-10 pb-12">
       {children}
     </div>
   )

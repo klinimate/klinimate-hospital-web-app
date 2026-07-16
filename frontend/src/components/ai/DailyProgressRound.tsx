@@ -1,17 +1,22 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { ChoiceChipGroup } from '@/components/ui/ChoiceChipGroup'
 import { TextArea } from '@/components/ui/TextArea'
 import type { Patient } from '@/data/patients'
+import { computeTriageFromVitals } from '@/lib/triage'
+import INVESTIGATIONS from '@/config/clinical/investigations'
+import ALERTS from '@/config/clinical/alerts'
+import VITAL_THRESHOLDS from '@/config/clinical/vitals'
 
 interface AssessmentDraft {
-  currentClinicalStatus: string
-  majorClinicalProblems: string
-  aiClinicalImpression: string
-  aiRecommendedActions: string
-  suggestedInvestigations: string
-  suggestedInitialManagement: string
-  whyRecommended: string
+  clinicalSummary: string
+  problemsIdentified: string
+  reasonForRecommendation: string
+  immediateActionPlan: string
+  recommendedInvestigations: string
+  monitoringPlan: string
+  needForIntensivistReview: string
 }
 
 interface DailyProgressRoundEntry {
@@ -44,6 +49,7 @@ function createInitialForm(patient: Patient) {
   return {
     subjective: 'Same',
     subjectiveText: '',
+    showSubjectiveNote: false,
     objective: {
       bp: patient.vitals.bp,
       pulse: patient.vitals.pulse,
@@ -58,8 +64,10 @@ function createInitialForm(patient: Patient) {
     cardiovascular: 'Stable',
     cns: 'Alert',
     urineOutputExam: 'Adequate',
+    showClinicalNote: false,
     examinationText: '',
     impression: '',
+    showImpressionNote: false,
     managementPlan: {
       continueCurrentTreatment: true,
       oxygenTherapy: false,
@@ -73,6 +81,9 @@ function createInitialForm(patient: Patient) {
       dischargePlanning: false,
     },
     intensivistRecommendations: '',
+    showIntensivistNote: false,
+    showOverallNote: false,
+    overallNotes: '',
     checklist: {
       repeatVitals: true,
       monitorUrineOutput: true,
@@ -93,15 +104,21 @@ function createAssessmentDraft(form: ReturnType<typeof createInitialForm>): Asse
   const temp = parseNumber(form.objective.temperature)
   const spo2 = parseNumber(form.objective.spo2)
 
-  const problems: string[] = []
-  if (!Number.isNaN(spo2) && spo2 < 94) problems.push('Hypoxemia')
-  if (!Number.isNaN(bp.sys) && bp.sys < 90) problems.push('Hypotension')
-  if (!Number.isNaN(pulse) && pulse > 100) problems.push('Tachycardia')
-  if (!Number.isNaN(rr) && rr > 24) problems.push('Respiratory distress')
-  if (!Number.isNaN(temp) && temp >= 38) problems.push('Fever')
-  if (form.urineOutputExam !== 'Adequate') problems.push('Reduced urine output')
+  const problemKeys: string[] = []
+  const isHypoxemia = !Number.isNaN(spo2) && spo2 < (VITAL_THRESHOLDS.spo2.normal?.low ?? 94)
+  const isHypotension = !Number.isNaN(bp.sys) && bp.sys < (VITAL_THRESHOLDS.bp.systolic.normal?.low ?? 100)
+  const isTachycardia = !Number.isNaN(pulse) && pulse > (VITAL_THRESHOLDS.pulse.normal?.high ?? 100)
+  const isTachypnea = !Number.isNaN(rr) && rr > (VITAL_THRESHOLDS.respiratoryRate.warning?.high ?? 24)
+  const isFever = !Number.isNaN(temp) && temp >= (VITAL_THRESHOLDS.temperature.warning?.high ?? 38)
+
+  if (isHypoxemia) problemKeys.push('hypoxemia')
+  if (isHypotension) problemKeys.push('hypotension')
+  if (isTachycardia) problemKeys.push('tachycardia')
+  if (isTachypnea) problemKeys.push('respiratory_distress')
+  if (isFever) problemKeys.push('fever')
+  if (form.urineOutputExam !== 'Adequate') problemKeys.push('suspectedSepsis')
   if (form.generalCondition === 'Toxic' || form.generalCondition === 'Drowsy' || form.generalCondition === 'Unresponsive') {
-    problems.push('Altered conscious state')
+    problemKeys.push('alteredConsciousness')
   }
 
   const currentClinicalStatus = [
@@ -111,13 +128,9 @@ function createAssessmentDraft(form: ReturnType<typeof createInitialForm>): Asse
     `Neurological status is ${form.cns.toLowerCase()}.`,
   ].join(' ')
 
-  const majorClinicalProblems = problems.length
-    ? `Current concerns: ${problems.join(', ')}.`
+  const majorClinicalProblems = problemKeys.length
+    ? `Current concerns: ${[...new Set(problemKeys)].join(', ')}.`
     : 'No major red flags identified at this review.'
-
-  const aiClinicalImpression = problems.length
-    ? `The current picture suggests ${problems.join(', ').toLowerCase()} requiring close review and escalation if worsening.`
-    : 'The patient appears stable and continues to require routine monitoring.'
 
   const aiRecommendedActions = [
     'Continue current monitoring and reassess vitals at the next scheduled interval.',
@@ -127,13 +140,14 @@ function createAssessmentDraft(form: ReturnType<typeof createInitialForm>): Asse
     ...(form.urineOutputExam !== 'Adequate' ? ['Monitor urine output closely and reassess renal perfusion.'] : []),
   ].join(' ')
 
-  const suggestedInvestigations = [
-    ...(form.respiratory !== 'Normal' ? ['Chest X-ray'] : []),
-    ...(form.cardiovascular === 'Hypotension' ? ['RFT / lactate'] : []),
-    ...(form.urineOutputExam !== 'Adequate' ? ['Urine output review'] : []),
-    ...(form.generalCondition === 'Toxic' ? ['CBC / cultures'] : []),
-    ...(form.cardiovascular === 'Tachycardia' ? ['ECG'] : []),
-  ].join(', ') || 'No new investigations required at this time.'
+  // Map problem keys to investigations using the configurable mapping
+  const investigationsSet = new Set<string>()
+  problemKeys.forEach((k) => {
+    const list = INVESTIGATIONS[k]
+    if (list && Array.isArray(list)) list.forEach((i) => investigationsSet.add(i))
+  })
+
+  const suggestedInvestigations = investigationsSet.size ? Array.from(investigationsSet).join(', ') : 'No new investigations required at this time.'
 
   const suggestedInitialManagement = [
     ...(form.managementPlan.oxygenTherapy ? ['Oxygen therapy'] : []),
@@ -149,14 +163,22 @@ function createAssessmentDraft(form: ReturnType<typeof createInitialForm>): Asse
     `Urine output is ${form.urineOutputExam.toLowerCase()}.`,
   ].join(' ')
 
+  // Escalation advice based on triage config
+  const triageResult = computeTriageFromVitals(form.objective, `${form.generalCondition} ${form.cns} ${form.respiratory} ${form.examinationText}`)
+  const needForIntensivist = triageResult.level === 'RED' || triageResult.level === 'BLACK'
+    ? ALERTS.callKlinimateIntensivistImmediately.recommendedAction
+    : triageResult.level === 'YELLOW'
+      ? ALERTS.notifyKlinimateIntensivist.recommendedAction
+      : ALERTS.noEscalationRequired.recommendedAction
+
   return {
-    currentClinicalStatus,
-    majorClinicalProblems,
-    aiClinicalImpression,
-    aiRecommendedActions,
-    suggestedInvestigations,
-    suggestedInitialManagement,
-    whyRecommended,
+    clinicalSummary: currentClinicalStatus,
+    problemsIdentified: majorClinicalProblems,
+    reasonForRecommendation: whyRecommended,
+    immediateActionPlan: aiRecommendedActions,
+    recommendedInvestigations: suggestedInvestigations,
+    monitoringPlan: suggestedInitialManagement,
+    needForIntensivistReview: needForIntensivist,
   }
 }
 
@@ -166,9 +188,9 @@ function createReminders(patient: Patient, form: ReturnType<typeof createInitial
   const pulse = parseNumber(form.objective.pulse)
   const spo2 = parseNumber(form.objective.spo2)
 
-  if (bp.sys < 100 || bp.sys > 160) reminders.push('Repeat BP in 30 minutes')
-  if (spo2 && spo2 < 95) reminders.push('Repeat SpO₂ and ABG')
-  if (!Number.isNaN(pulse) && pulse > 100) reminders.push('Repeat pulse and ECG review')
+  if (!Number.isNaN(bp.sys) && (bp.sys < (VITAL_THRESHOLDS.bp.systolic.normal?.low ?? 100) || bp.sys > (VITAL_THRESHOLDS.bp.systolic.warning?.high ?? 160))) reminders.push('Repeat BP in 30 minutes')
+  if (!Number.isNaN(spo2) && spo2 < (VITAL_THRESHOLDS.spo2.warning?.low ?? 90)) reminders.push('Repeat SpO₂ and ABG')
+  if (!Number.isNaN(pulse) && pulse > (VITAL_THRESHOLDS.pulse.normal?.high ?? 100)) reminders.push('Repeat pulse and ECG review')
   if (form.objective.bloodSugar) reminders.push('Repeat blood sugar')
   if (form.urineOutputExam !== 'Adequate') reminders.push('Review urine output after fluids')
   if (form.respiratory !== 'Normal') reminders.push('Review chest X-ray')
@@ -187,6 +209,8 @@ export function DailyProgressRound({ patient }: { patient: Patient }) {
   const doctorName = 'Dr. Asha Kumar'
   const [form, setForm] = useState(() => createInitialForm(patient))
   const [assessment, setAssessment] = useState<AssessmentDraft>(() => createAssessmentDraft(createInitialForm(patient)))
+  const [recommendation, setRecommendation] = useState('Notify Klinimate Intensivist immediately.')
+  const [recommendationReason, setRecommendationReason] = useState('Patient requires review based on current clinical status.')
   const [rounds, setRounds] = useState<DailyProgressRoundEntry[]>([])
   const [savedMessage, setSavedMessage] = useState('')
 
@@ -198,9 +222,14 @@ export function DailyProgressRound({ patient }: { patient: Patient }) {
   const locationLabel = patient.room.includes('ICU') ? 'ICU' : 'Ward'
   const bedNumber = patient.room.match(/(\d+)/)?.[1] ?? '—'
   const reminders = useMemo(() => createReminders(patient, form), [patient, form])
+  const triage = useMemo(() => computeTriageFromVitals(form.objective, `${form.generalCondition} ${form.cns} ${form.respiratory} ${form.examinationText}`), [form])
 
   function updateField<K extends keyof typeof form>(field: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [field]: value }))
+  }
+
+  function toggleSection(key: 'showSubjectiveNote' | 'showClinicalNote' | 'showImpressionNote' | 'showIntensivistNote' | 'showOverallNote') {
+    setForm((prev) => ({ ...prev, [key]: !prev[key] }))
   }
 
   function updateObjectiveField(field: string, value: string) {
@@ -211,13 +240,6 @@ export function DailyProgressRound({ patient }: { patient: Patient }) {
     setForm((prev) => ({
       ...prev,
       managementPlan: { ...prev.managementPlan, [key]: !prev.managementPlan[key] },
-    }))
-  }
-
-  function toggleChecklist(key: keyof typeof form.checklist) {
-    setForm((prev) => ({
-      ...prev,
-      checklist: { ...prev.checklist, [key]: !prev.checklist[key] },
     }))
   }
 
@@ -258,6 +280,16 @@ export function DailyProgressRound({ patient }: { patient: Patient }) {
         </div>
       </div>
 
+      <div className={`rounded-2xl p-4 text-sm font-medium shadow-sm ${triage.colorClass}`}>
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-xs uppercase tracking-wide opacity-90">Klinimate Triage</p>
+            <p className="mt-1 text-lg font-semibold">{triage.label}</p>
+          </div>
+          <div className="rounded-full bg-white/20 px-3 py-1 text-xs">Bedside review</div>
+        </div>
+      </div>
+
       <div className="rounded-2xl bg-surface-muted p-3">
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div>
@@ -281,37 +313,17 @@ export function DailyProgressRound({ patient }: { patient: Patient }) {
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">1. Subjective</h4>
-          <span className="text-xs text-text-muted">Quick options</span>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {['Better', 'Same', 'Worse', 'New complaint'].map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => updateField('subjective', option)}
-              className={`rounded-full border px-3 py-2 text-sm ${form.subjective === option ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-border bg-white text-text'}`}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-        <TextArea label="Optional free text" rows={3} value={form.subjectiveText} onChange={(event) => updateField('subjectiveText', event.target.value)} />
-      </section>
-
-      <section className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">2. Objective</h4>
-          <span className="text-xs text-text-muted">Auto-populated from latest vitals</span>
+          <h4 className="text-sm font-semibold text-text">1. Vitals</h4>
+          <span className="text-xs text-text-muted">Quick entry</span>
         </div>
         <div className="grid grid-cols-2 gap-3">
           {[
             { key: 'bp', label: 'BP' },
             { key: 'pulse', label: 'Pulse' },
-            { key: 'respiratoryRate', label: 'Respiratory rate' },
-            { key: 'temperature', label: 'Temperature' },
+            { key: 'respiratoryRate', label: 'RR' },
+            { key: 'temperature', label: 'Temp' },
             { key: 'spo2', label: 'SpO₂' },
-            { key: 'bloodSugar', label: 'Blood sugar' },
+            { key: 'bloodSugar', label: 'Sugar' },
           ].map((item) => (
             <label key={item.key} className="rounded-2xl border border-border bg-surface-muted p-3 text-sm text-text">
               <span className="mb-2 block text-xs text-text-muted">{item.label}</span>
@@ -331,99 +343,39 @@ export function DailyProgressRound({ patient }: { patient: Patient }) {
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">3. Clinical Examination</h4>
-          <span className="text-xs text-text-muted">Bedside choices</span>
+          <h4 className="text-sm font-semibold text-text">2. Clinical Status</h4>
+          <span className="text-xs text-text-muted">Tap to select</span>
         </div>
         <div className="space-y-3 rounded-2xl border border-border bg-surface-muted p-3">
-          <div>
-            <p className="mb-2 text-sm font-medium text-text">General condition</p>
-            <div className="flex flex-wrap gap-2">
-              {['Comfortable', 'Stable', 'Sick', 'Toxic', 'Drowsy', 'Unresponsive'].map((option) => (
-                <button key={option} type="button" onClick={() => updateField('generalCondition', option)} className={`rounded-full border px-3 py-2 text-sm ${form.generalCondition === option ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-border bg-white text-text'}`}>
-                  {option}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="mb-2 text-sm font-medium text-text">Respiratory</p>
-            <div className="flex flex-wrap gap-2">
-              {['Normal', 'Mild respiratory distress', 'Moderate respiratory distress', 'Severe respiratory distress'].map((option) => (
-                <button key={option} type="button" onClick={() => updateField('respiratory', option)} className={`rounded-full border px-3 py-2 text-sm ${form.respiratory === option ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-border bg-white text-text'}`}>
-                  {option}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="mb-2 text-sm font-medium text-text">Cardiovascular</p>
-            <div className="flex flex-wrap gap-2">
-              {['Stable', 'Tachycardia', 'Hypotension'].map((option) => (
-                <button key={option} type="button" onClick={() => updateField('cardiovascular', option)} className={`rounded-full border px-3 py-2 text-sm ${form.cardiovascular === option ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-border bg-white text-text'}`}>
-                  {option}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="mb-2 text-sm font-medium text-text">CNS</p>
-            <div className="flex flex-wrap gap-2">
-              {['Alert', 'Drowsy', 'Confused', 'Unresponsive'].map((option) => (
-                <button key={option} type="button" onClick={() => updateField('cns', option)} className={`rounded-full border px-3 py-2 text-sm ${form.cns === option ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-border bg-white text-text'}`}>
-                  {option}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="mb-2 text-sm font-medium text-text">Urine output</p>
-            <div className="flex flex-wrap gap-2">
-              {['Adequate', 'Reduced', 'No urine output'].map((option) => (
-                <button key={option} type="button" onClick={() => updateField('urineOutputExam', option)} className={`rounded-full border px-3 py-2 text-sm ${form.urineOutputExam === option ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-border bg-white text-text'}`}>
-                  {option}
-                </button>
-              ))}
-            </div>
-          </div>
-          <TextArea label="Optional free text" rows={3} value={form.examinationText} onChange={(event) => updateField('examinationText', event.target.value)} />
+          <ChoiceChipGroup label="Subjective" options={['Better', 'Same', 'Worse', 'New complaint']} selected={form.subjective} onSelect={(value) => updateField('subjective', value)} notes={form.subjectiveText} onNotesChange={(value) => updateField('subjectiveText', value)} showNotes={form.showSubjectiveNote} onToggleNotes={() => toggleSection('showSubjectiveNote')} noteLabel="Subjective note" />
+          <ChoiceChipGroup label="General condition" options={['Comfortable', 'Stable', 'Sick', 'Toxic', 'Drowsy', 'Unresponsive']} selected={form.generalCondition} onSelect={(value) => updateField('generalCondition', value)} />
+          <ChoiceChipGroup label="Respiratory" options={['Normal', 'Mild respiratory distress', 'Moderate respiratory distress', 'Severe respiratory distress']} selected={form.respiratory} onSelect={(value) => updateField('respiratory', value)} />
+          <ChoiceChipGroup label="Cardiovascular" options={['Stable', 'Tachycardia', 'Hypotension']} selected={form.cardiovascular} onSelect={(value) => updateField('cardiovascular', value)} />
+          <ChoiceChipGroup label="CNS" options={['Alert', 'Drowsy', 'Confused', 'Unresponsive']} selected={form.cns} onSelect={(value) => updateField('cns', value)} />
+          <ChoiceChipGroup label="Urine output" options={['Adequate', 'Reduced', 'No urine output']} selected={form.urineOutputExam} onSelect={(value) => updateField('urineOutputExam', value)} />
+          <ChoiceChipGroup label="Clinical note" options={['Add note']} selected={form.showClinicalNote ? 'Add note' : ''} onSelect={() => toggleSection('showClinicalNote')} notes={form.examinationText} onNotesChange={(value) => updateField('examinationText', value)} showNotes={form.showClinicalNote} onToggleNotes={() => toggleSection('showClinicalNote')} noteLabel="Clinical note" />
         </div>
       </section>
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">4. Klinimate AI Clinical Assessment</h4>
-          <span className="text-xs text-text-muted">Auto-regenerated</span>
+          <h4 className="text-sm font-semibold text-text">3. Investigations</h4>
+          <span className="text-xs text-text-muted">Short list</span>
         </div>
-        <div className="space-y-2 rounded-2xl border border-border bg-surface-muted p-3">
-          <label className="text-sm font-medium text-text">Current Clinical Status</label>
-          <TextArea label="" rows={2} value={assessment.currentClinicalStatus} onChange={(event) => setAssessment((prev) => ({ ...prev, currentClinicalStatus: event.target.value }))} />
-          <label className="text-sm font-medium text-text">Major Clinical Problems</label>
-          <TextArea label="" rows={2} value={assessment.majorClinicalProblems} onChange={(event) => setAssessment((prev) => ({ ...prev, majorClinicalProblems: event.target.value }))} />
-          <label className="text-sm font-medium text-text">AI Clinical Impression</label>
-          <TextArea label="" rows={2} value={assessment.aiClinicalImpression} onChange={(event) => setAssessment((prev) => ({ ...prev, aiClinicalImpression: event.target.value }))} />
-          <label className="text-sm font-medium text-text">AI Recommended Actions</label>
-          <TextArea label="" rows={2} value={assessment.aiRecommendedActions} onChange={(event) => setAssessment((prev) => ({ ...prev, aiRecommendedActions: event.target.value }))} />
-          <label className="text-sm font-medium text-text">Suggested Investigations</label>
-          <TextArea label="" rows={2} value={assessment.suggestedInvestigations} onChange={(event) => setAssessment((prev) => ({ ...prev, suggestedInvestigations: event.target.value }))} />
-          <label className="text-sm font-medium text-text">Suggested Initial Management</label>
-          <TextArea label="" rows={2} value={assessment.suggestedInitialManagement} onChange={(event) => setAssessment((prev) => ({ ...prev, suggestedInitialManagement: event.target.value }))} />
-          <label className="text-sm font-medium text-text">Why is Klinimate recommending this?</label>
-          <TextArea label="" rows={2} value={assessment.whyRecommended} onChange={(event) => setAssessment((prev) => ({ ...prev, whyRecommended: event.target.value }))} />
+        <div className="grid gap-2 rounded-2xl border border-border bg-surface-muted p-3">
+          {[['orderInvestigations', 'Order investigations'], ['repeatInvestigations', 'Repeat investigations'], ['reviewInvestigations', 'Review investigations']].map(([key, label]) => (
+            <label key={key} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm text-text">
+              <input type="checkbox" checked={form.managementPlan[key as keyof typeof form.managementPlan]} onChange={() => toggleManagementPlan(key as keyof typeof form.managementPlan)} />
+              <span>{label}</span>
+            </label>
+          ))}
         </div>
       </section>
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">5. Today’s Clinical Impression</h4>
-          <span className="text-xs text-text-muted">Editable</span>
-        </div>
-        <TextArea label="" rows={3} value={form.impression} onChange={(event) => updateField('impression', event.target.value)} />
-      </section>
-
-      <section className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">6. Today’s Management Plan</h4>
-          <span className="text-xs text-text-muted">Checklist</span>
+          <h4 className="text-sm font-semibold text-text">4. Treatment</h4>
+          <span className="text-xs text-text-muted">Care plan</span>
         </div>
         <div className="grid gap-2 rounded-2xl border border-border bg-surface-muted p-3">
           {[
@@ -431,12 +383,9 @@ export function DailyProgressRound({ patient }: { patient: Patient }) {
             ['oxygenTherapy', 'Oxygen therapy'],
             ['ivFluids', 'IV fluids'],
             ['antibiotics', 'Antibiotics'],
-            ['orderInvestigations', 'Order investigations'],
-            ['repeatInvestigations', 'Repeat investigations'],
             ['shiftToICU', 'Shift to ICU'],
             ['referSpecialist', 'Refer specialist'],
             ['notifyIntensivist', 'Notify Klinimate Intensivist'],
-            ['dischargePlanning', 'Discharge planning'],
           ].map(([key, label]) => (
             <label key={key} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm text-text">
               <input type="checkbox" checked={form.managementPlan[key as keyof typeof form.managementPlan]} onChange={() => toggleManagementPlan(key as keyof typeof form.managementPlan)} />
@@ -448,54 +397,54 @@ export function DailyProgressRound({ patient }: { patient: Patient }) {
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">7. Klinimate Intensivist Recommendations</h4>
-          <span className="text-xs text-text-muted">Dedicated notes</span>
-        </div>
-        <TextArea label="" rows={3} value={form.intensivistRecommendations} onChange={(event) => updateField('intensivistRecommendations', event.target.value)} />
-      </section>
-
-      <section className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">8. Daily Clinical Checklist</h4>
-          <span className="text-xs text-text-muted">Quick review</span>
-        </div>
-        <div className="grid gap-2 rounded-2xl border border-border bg-surface-muted p-3">
-          {[
-            ['repeatVitals', 'Repeat vitals'],
-            ['monitorUrineOutput', 'Monitor urine output'],
-            ['reviewInvestigations', 'Review investigations'],
-            ['reviewAntibiotics', 'Review antibiotics'],
-            ['reviewFluidBalance', 'Review fluid balance'],
-            ['repeatBloodSugar', 'Repeat blood sugar'],
-            ['familyCounselling', 'Family counselling completed'],
-            ['consultantInformed', 'Consultant informed'],
-          ].map(([key, label]) => (
-            <label key={key} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm text-text">
-              <input type="checkbox" checked={form.checklist[key as keyof typeof form.checklist]} onChange={() => toggleChecklist(key as keyof typeof form.checklist)} />
-              <span>{label}</span>
-            </label>
-          ))}
-        </div>
-      </section>
-
-      <section className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">9. AI Follow-up Reminders</h4>
-          <span className="text-xs text-text-muted">Auto-generated</span>
+          <h4 className="text-sm font-semibold text-text">5. Klinimate AI Clinical Assessment</h4>
+          <span className="text-xs text-text-muted">Editable</span>
         </div>
         <div className="space-y-2 rounded-2xl border border-border bg-surface-muted p-3">
-          {reminders.map((reminder) => (
-            <div key={reminder} className="rounded-xl bg-white px-3 py-2 text-sm text-text">
-              {reminder}
-            </div>
-          ))}
+          <label className="text-sm font-medium text-text">Clinical Summary</label>
+          <TextArea label="" rows={2} value={assessment.clinicalSummary} onChange={(event) => setAssessment((prev) => ({ ...prev, clinicalSummary: event.target.value }))} />
+          <label className="text-sm font-medium text-text">Problems Identified</label>
+          <TextArea label="" rows={2} value={assessment.problemsIdentified} onChange={(event) => setAssessment((prev) => ({ ...prev, problemsIdentified: event.target.value }))} />
+          <label className="text-sm font-medium text-text">Reason for Recommendation</label>
+          <TextArea label="" rows={2} value={assessment.reasonForRecommendation} onChange={(event) => setAssessment((prev) => ({ ...prev, reasonForRecommendation: event.target.value }))} />
+          <label className="text-sm font-medium text-text">Immediate Action Plan</label>
+          <TextArea label="" rows={2} value={assessment.immediateActionPlan} onChange={(event) => setAssessment((prev) => ({ ...prev, immediateActionPlan: event.target.value }))} />
+          <label className="text-sm font-medium text-text">Recommended Investigations</label>
+          <TextArea label="" rows={2} value={assessment.recommendedInvestigations} onChange={(event) => setAssessment((prev) => ({ ...prev, recommendedInvestigations: event.target.value }))} />
+          <label className="text-sm font-medium text-text">Monitoring Plan</label>
+          <TextArea label="" rows={2} value={assessment.monitoringPlan} onChange={(event) => setAssessment((prev) => ({ ...prev, monitoringPlan: event.target.value }))} />
+          <label className="text-sm font-medium text-text">Need for Klinimate Intensivist Review</label>
+          <TextArea label="" rows={2} value={assessment.needForIntensivistReview} onChange={(event) => setAssessment((prev) => ({ ...prev, needForIntensivistReview: event.target.value }))} />
         </div>
       </section>
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-text">10. Progress Timeline</h4>
-          <span className="text-xs text-text-muted">Chronological</span>
+          <h4 className="text-sm font-semibold text-text">6. Consultant Recommendation</h4>
+          <span className="text-xs text-text-muted">Editable</span>
+        </div>
+        <div className="space-y-3 rounded-2xl border border-border bg-surface-muted p-3">
+          <label className="text-sm font-medium text-text">Recommendation</label>
+          <TextArea label="" rows={2} value={recommendation} onChange={(event) => setRecommendation(event.target.value)} />
+          <label className="text-sm font-medium text-text">Reason for Recommendation</label>
+          <TextArea label="" rows={2} value={recommendationReason} onChange={(event) => setRecommendationReason(event.target.value)} />
+          <button type="button" className="text-sm font-medium text-primary-700" onClick={() => toggleSection('showIntensivistNote')}>Add manual note</button>
+          {form.showIntensivistNote ? <TextArea label="Manual note" rows={2} value={form.intensivistRecommendations} onChange={(event) => updateField('intensivistRecommendations', event.target.value)} /> : null}
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h4 className="text-sm font-semibold text-text">7. Manual Notes</h4>
+          <span className="text-xs text-text-muted">Optional</span>
+        </div>
+        <TextArea label="Overall manual notes" rows={3} value={form.overallNotes} onChange={(event) => updateField('overallNotes', event.target.value)} />
+      </section>
+
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h4 className="text-sm font-semibold text-text">8. Save Progress</h4>
+          <span className="text-xs text-text-muted">Quick save</span>
         </div>
         <Button size="md" fullWidth onClick={saveRound}>Save daily progress round</Button>
         {savedMessage ? <p className="text-sm text-primary-700">{savedMessage}</p> : null}

@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import type { Patient } from '@/data/patients'
 import { computeTriageForPatient } from '@/lib/triage'
+import VITAL_THRESHOLDS from '@/config/clinical/vitals'
 
 interface Problem { key: string; label: string; reason: string }
 interface Recommendation { id: string; title: string; reason: string; suggested?: boolean }
@@ -34,25 +35,31 @@ export function ClinicalAssessment({ patient }: { patient: Patient }) {
     const spo2 = parseNumber(patient.vitals.spo2)
     const sugar = parseNumber(patient.vitals.bloodSugar)
 
-    if (!Number.isNaN(spo2) && spo2 < 94) {
-      out.push({ key: 'hypoxemia', label: 'Hypoxemia', reason: `SpO₂ ${patient.vitals.spo2} is below 94%` })
+    const isHypoxemia = !Number.isNaN(spo2) && spo2 < (VITAL_THRESHOLDS.spo2.normal?.low ?? 94)
+    const isHypotension = !Number.isNaN(bp.sys) && bp.sys < (VITAL_THRESHOLDS.bp.systolic.normal?.low ?? 100)
+    const isTachycardia = !Number.isNaN(pulse) && pulse > (VITAL_THRESHOLDS.pulse.normal?.high ?? 100)
+    const isFever = !Number.isNaN(temp) && temp >= (VITAL_THRESHOLDS.temperature.warning?.high ?? 38)
+    const isTachypnea = !Number.isNaN(rr) && rr > (VITAL_THRESHOLDS.respiratoryRate.normal?.high ?? 20)
+
+    if (isHypoxemia) {
+      out.push({ key: 'hypoxemia', label: 'Hypoxemia', reason: `SpO₂ ${patient.vitals.spo2} is below ${VITAL_THRESHOLDS.spo2.normal?.low ?? 94}%` })
     }
-    if (!Number.isNaN(bp.sys) && bp.sys < 90) {
-      out.push({ key: 'hypotension', label: 'Hypotension', reason: `Systolic BP ${bp.sys} mmHg is below 90 mmHg` })
+    if (isHypotension) {
+      out.push({ key: 'hypotension', label: 'Hypotension', reason: `Systolic BP ${bp.sys} mmHg is below ${VITAL_THRESHOLDS.bp.systolic.normal?.low ?? 100} mmHg` })
     }
-    if (!Number.isNaN(pulse) && pulse > 100) {
-      out.push({ key: 'tachycardia', label: 'Tachycardia', reason: `Pulse ${patient.vitals.pulse} bpm is elevated` })
+    if (isTachycardia) {
+      out.push({ key: 'tachycardia', label: 'Tachycardia', reason: `Pulse ${patient.vitals.pulse} bpm is elevated over ${VITAL_THRESHOLDS.pulse.normal?.high ?? 100}` })
     }
     // Oliguria detection via notes keywords (best-effort)
     const notesText = (patient.notes || []).join(' ').toLowerCase()
     if (/(oliguria|reduced urine|low urine|reduced urine output)/.test(notesText)) {
       out.push({ key: 'oliguria', label: 'Oliguria', reason: 'Documentation suggests reduced urine output' })
     }
-    if (!Number.isNaN(temp) && temp >= 38) {
+    if (isFever) {
       out.push({ key: 'fever', label: 'Fever', reason: `Temperature ${patient.vitals.temperature} indicates fever` })
     }
-    if (!Number.isNaN(rr) && rr > 24) {
-      out.push({ key: 'respiratory_distress', label: 'Respiratory distress', reason: `Respiratory rate ${patient.vitals.respiratoryRate} /min is high` })
+    if (isTachypnea) {
+      out.push({ key: 'respiratory_distress', label: 'Respiratory distress', reason: `Respiratory rate ${patient.vitals.respiratoryRate} /min exceeds ${VITAL_THRESHOLDS.respiratoryRate.warning?.high ?? 24}` })
     }
     if (/(confused|drowsy|unresponsive|agitated|altered mental)/.test(notesText)) {
       out.push({ key: 'altered_mental', label: 'Altered mental status', reason: 'Notes suggest altered mental status' })
