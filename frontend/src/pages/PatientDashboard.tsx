@@ -4,8 +4,10 @@ import { AppLayout } from '@/components/layout/AppLayout'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import DailyProgressRound from '@/components/ai/DailyProgressRound'
+import { PatientIntelligenceCard } from '@/components/ai/PatientIntelligenceCard'
 import { patients } from '@/data/patients'
 import { computeTriageForPatient } from '@/lib/triage'
+import { buildPatientIntelligence } from '@/data/patientIntelligence'
 import { TriageCard } from '@/components/ui/TriageCard'
 
 export function PatientDashboard() {
@@ -15,6 +17,10 @@ export function PatientDashboard() {
 
   const patient = useMemo(() => patients.find((p) => p.id === patientId), [patientId])
   const triage = useMemo(() => (patient ? computeTriageForPatient(patient) : null), [patient])
+  const intelligence = useMemo(
+    () => (patient && triage ? buildPatientIntelligence(patient, triage.level) : null),
+    [patient, triage],
+  )
 
   if (!patient) {
     return (
@@ -111,6 +117,8 @@ export function PatientDashboard() {
   return (
     <AppLayout>
       <div className="flex flex-col gap-4 pb-6">
+        {intelligence ? <PatientIntelligenceCard patientId={patient.id} snapshot={intelligence} /> : null}
+
         {/* Patient header */}
         <Card>
           <div className="flex items-start justify-between gap-3">
