@@ -1,123 +1,97 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { AppLayout } from '@/components/layout/AppLayout'
-import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
 import { patients } from '@/data/patients'
+import { buildPatientIntelligence } from '@/data/patientIntelligence'
+import { computeTriageForPatient } from '@/lib/triage'
+import { PatientIntelligenceCard } from '@/components/ai/PatientIntelligenceCard'
 
-const statusStyles: Record<string, string> = {
-  Admitted: 'bg-primary-50 text-primary-700',
-  Observation: 'bg-amber-50 text-amber-700',
-  Critical: 'bg-rose-50 text-rose-700',
-  Discharged: 'bg-emerald-50 text-emerald-700',
-}
+const userName = 'Dr. Ananya Sharma'
+const hospitalName = 'City General Hospital'
 
 export function PatientsPage() {
   const [search, setSearch] = useState('')
-  const [status, setStatus] = useState('All')
-  const [priority, setPriority] = useState('All')
+  const [workflowFilter, setWorkflowFilter] = useState('All')
+
+  const workflowFilters = ['All', 'OPD', 'IPD', 'Ward', 'ICU', 'Emergency'] as const
 
   const filteredPatients = useMemo(() => {
-    return patients.filter((patient) => {
-      const query = search.trim().toLowerCase()
-      const matchesSearch =
-        !query ||
-        patient.name.toLowerCase().includes(query) ||
-        patient.id.toLowerCase().includes(query) ||
-        patient.department.toLowerCase().includes(query)
+    return patients
+      .filter((patient) => {
+        const query = search.trim().toLowerCase()
+        const matchesSearch =
+          !query ||
+          patient.name.toLowerCase().includes(query) ||
+          patient.id.toLowerCase().includes(query) ||
+          patient.careSetting.toLowerCase().includes(query) ||
+          patient.room.toLowerCase().includes(query)
 
-      const matchesStatus = status === 'All' || patient.status === status
-      const matchesPriority = priority === 'All' || patient.priority === priority
+        const matchesWorkflow =
+          workflowFilter === 'All' ||
+          patient.careSetting === workflowFilter ||
+          (workflowFilter === 'Ward' && (patient.room.toLowerCase().includes('ward') || patient.careSetting === 'IPD'))
 
-      return matchesSearch && matchesStatus && matchesPriority
-    })
-  }, [priority, search, status])
+        return matchesSearch && matchesWorkflow
+      })
+      .map((patient) => {
+        const triage = computeTriageForPatient(patient)
+        const snapshot = buildPatientIntelligence(patient, triage.level)
+
+        return { patient, snapshot }
+      })
+  }, [search, workflowFilter])
 
   return (
     <AppLayout>
-      <div className="flex flex-col gap-4">
-        <header className="flex items-start justify-between gap-3">
-          <div>
-            <h1 className="text-xl font-semibold text-text">Patient Management</h1>
-            <p className="mt-1 text-sm text-text-muted">
-              Search, review, and update patient care
-            </p>
+      <div className="flex flex-col gap-3">
+        <header className="rounded-2xl bg-white px-4 py-3 shadow-sm">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50">
+                <img src="/klinimate-icon.png" alt="Klinimate" className="h-7 w-7 object-contain" />
+              </div>
+              <div className="min-w-0">
+                <div className="truncate text-sm font-semibold text-text">Welcome {userName}</div>
+                <div className="truncate text-xs text-text-muted">{hospitalName}</div>
+              </div>
+            </div>
+            <div className="flex shrink-0 items-center gap-2 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-emerald-500" />
+              Online
+            </div>
           </div>
-          <Link to="/patients/new">
-            <Button size="md">+ Add</Button>
-          </Link>
         </header>
 
         <section className="rounded-2xl bg-white p-4 shadow-sm">
-          <div className="flex flex-col gap-3">
-            <input
-              aria-label="Search patients"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder="Search by name, ID, or department"
-              className="min-h-12 rounded-xl border border-border bg-surface-muted px-4 text-sm text-text outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
-            />
-            <div className="grid grid-cols-2 gap-3">
-              <label className="flex flex-col gap-1 text-sm font-medium text-text">
-                Status
-                <select
-                  value={status}
-                  onChange={(event) => setStatus(event.target.value)}
-                  className="min-h-11 rounded-xl border border-border bg-white px-3 text-sm text-text"
-                >
-                  <option value="All">All</option>
-                  <option value="Admitted">Admitted</option>
-                  <option value="Observation">Observation</option>
-                  <option value="Critical">Critical</option>
-                  <option value="Discharged">Discharged</option>
-                </select>
-              </label>
-              <label className="flex flex-col gap-1 text-sm font-medium text-text">
-                Priority
-                <select
-                  value={priority}
-                  onChange={(event) => setPriority(event.target.value)}
-                  className="min-h-11 rounded-xl border border-border bg-white px-3 text-sm text-text"
-                >
-                  <option value="All">All</option>
-                  <option value="High">High</option>
-                  <option value="Medium">Medium</option>
-                  <option value="Low">Low</option>
-                </select>
-              </label>
-            </div>
+          <input
+            aria-label="Search patients"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search patients"
+            className="min-h-12 w-full rounded-xl border border-border bg-surface-muted px-4 text-sm text-text outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
+          />
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {workflowFilters.map((filter) => (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setWorkflowFilter(filter)}
+                className={[
+                  'rounded-full px-3 py-2 text-xs font-semibold transition-colors',
+                  workflowFilter === filter
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-surface-muted text-text-muted hover:bg-primary-50 hover:text-primary-700',
+                ].join(' ')}
+              >
+                {filter}
+              </button>
+            ))}
           </div>
         </section>
 
         <section className="flex flex-col gap-3">
-          {filteredPatients.map((patient) => (
-            <Link key={patient.id} to={`/patients/${patient.id}`}>
-              <Card>
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="font-semibold text-text">{patient.name}</p>
-                      <p className="mt-0.5 text-sm text-text-muted">
-                        {patient.id} · {patient.department}
-                      </p>
-                    </div>
-                    <span
-                      className={[
-                        'rounded-full px-2.5 py-1 text-xs font-semibold',
-                        statusStyles[patient.status],
-                      ].join(' ')}
-                    >
-                      {patient.status}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-sm text-text-muted">
-                    <span>{patient.chiefComplaint}</span>
-                    <span>{patient.lastUpdated}</span>
-                  </div>
-                </div>
-              </Card>
-            </Link>
+          {filteredPatients.map(({ patient, snapshot }) => (
+            <PatientIntelligenceCard key={patient.id} patient={patient} snapshot={snapshot} compact />
           ))}
         </section>
       </div>

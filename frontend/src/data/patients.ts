@@ -39,6 +39,8 @@ export interface Patient {
   name: string
   age: number
   gender: string
+  careSetting: 'OPD' | 'Emergency' | 'IPD' | 'Ward' | 'ICU' | 'Rehabilitation' | 'Home Care' | 'Virtual Consultation'
+  hospitalDay: string
   room: string
   department: string
   chiefComplaint: string
@@ -68,6 +70,8 @@ export const patients: Patient[] = [
     name: 'Aarav Mehta',
     age: 41,
     gender: 'Male',
+    careSetting: 'IPD',
+    hospitalDay: 'Day 2',
     room: 'Ward B-12',
     department: 'General Medicine',
     chiefComplaint: 'Chest discomfort and fatigue',
@@ -164,6 +168,8 @@ export const patients: Patient[] = [
     name: 'Meera Iyer',
     age: 32,
     gender: 'Female',
+    careSetting: 'IPD',
+    hospitalDay: 'Day 1',
     room: 'Observation 4',
     department: 'Obstetrics',
     chiefComplaint: 'Post-op monitoring',
@@ -251,6 +257,8 @@ export const patients: Patient[] = [
     name: 'Kavya Rao',
     age: 58,
     gender: 'Female',
+    careSetting: 'ICU',
+    hospitalDay: 'Day 4',
     room: 'ICU-2',
     department: 'Cardiology',
     chiefComplaint: 'Hypertension flare-up',

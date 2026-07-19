@@ -12,7 +12,7 @@ export function LoginPage() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    navigate('/dashboard')
+    navigate('/patients')
   }
 
   return (
@@ -70,10 +70,7 @@ export function LoginPage() {
           </form>
 
           <div className="mt-[18px] text-center">
-            <Link
-              to="/forgot-password"
-              className="text-sm font-medium text-[#0F766E] hover:text-[#0C5A56]"
-            >
+            <Link to="/forgot-password" className="text-sm font-medium text-[#0F766E] hover:text-[#0C5A56]">
               Forgot Password?
             </Link>
           </div>
